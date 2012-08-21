@@ -1,0 +1,290 @@
+/* HTML5 display-role reset for older browsers */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/**
+ * Colors
+ */
+/**
+ * Crap
+ */
+body {
+  background-color: #000;
+}
+.page-wrapper {
+  background-image: linear-gradient(top, #3b3938 70px, #000000 270px);
+  background-image: -moz-linear-gradient(top, #3b3938 70px, #000000 270px);
+  background-image: -webkit-linear-gradient(top, #3b3938 70px, #000000 270px);
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+.page-wrapper .clear {
+  clear: both;
+}
+.page-wrapper .container {
+  margin: 0 auto;
+}
+.page-wrapper header {
+  height: 60px;
+  background: transparent url('/img/header-bg.png') 0px 0px repeat-x;
+}
+.page-wrapper header h1 {
+  float: left;
+  margin: 13px 20px 0 0;
+  color: #331;
+  font-size: 32px;
+  text-shadow: #fff 0px 0px 13px;
+}
+.page-wrapper header .navigation {
+  padding: 30px 20px 0 0;
+  float: right;
+}
+.page-wrapper header .navigation li {
+  display: inline-block;
+  float: left;
+  margin-left: 20px;
+}
+.page-wrapper header .navigation li a {
+  color: #aaa;
+  text-decoration: none;
+}
+.page-wrapper .body .sidebar {
+  border: 1px solid #4d4b49;
+  background: #262626;
+  color: #b0aeac;
+  margin: 0;
+  font-family: Consolas, "Courier new", monospace;
+}
+.page-wrapper .body .sidebar h2 {
+  background: transparent url('/img/header-bg.png') 0px -24px repeat-x;
+  margin: 0;
+  padding: 13px 13px 8px 13px;
+}
+.page-wrapper .body .sidebar fieldset {
+  margin: 10px 0 0 0;
+}
+.page-wrapper .body .sidebar legend {
+  display: block;
+  margin: 15px 0 5px 0;
+  padding: 4px;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  font-style: italic;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.page-wrapper .body .sidebar .filter {
+  font-family: Consolas, "Courier new", monospace;
+  background: transparent;
+  color: #778811;
+  border: none;
+  border-radius: none;
+  cursor: pointer;
+}
+.page-wrapper .body .sidebar .filter:hover {
+  color: #8BC53F;
+}
+.page-wrapper .body .sidebar .filter.active {
+  background: #1A1A1A;
+  color: #8BC53F;
+}
+.page-wrapper .body .content {
+  border: 1px solid #4d4b49;
+  background: #262626;
+  color: #b0aeac;
+  margin: 20px 0 0 0;
+}
+.page-wrapper .body input[type=text] {
+  background: #82807C;
+  color: #CDCAC1;
+  border: #82807C 1px solid;
+}
+.page-wrapper footer {
+  font-size: 12px;
+  font-family: Consolas, "Courier new", monospace;
+  margin: 20px 0 0 0;
+}
+.page-wrapper footer a {
+  color: #444;
+  text-decoration: none;
+}
+.page-wrapper footer a:hover {
+  text-decoration: underline;
+}
+/**
+ * Structure
+ */
+.container {
+  width: 1200px;
+}
+.sidebar {
+  width: 300px;
+  float: right;
+}
+.content {
+  width: 880px;
+}
+@media (max-width: 1200px) {
+  .container {
+    width: 940px;
+  }
+  .sidebar {
+    width: 200px;
+    float: right;
+  }
+  .content {
+    width: 720px;
+  }
+}
+@media (max-width: 940px) {
+  .container {
+    width: 767px;
+  }
+  .sidebar {
+    width: 200px;
+    float: right;
+  }
+  .content {
+    width: 547px;
+  }
+}
+@media (max-width: 767px) {
+  .container,
+  .sidebar,
+  .content {
+    width: 100%;
+    float: none;
+  }
+  .page-wrapper .container .sidebar,
+  .page-wrapper .container .content {
+    border-left: none;
+    border-right: none;
+    margin: 0;
+  }
+}
