@@ -3,7 +3,7 @@ define([
 	'text!templates/gamegrid/games.html'
 ], function(templateString) {
 
-	var GameGridGamesView = Backbone.View.extend({
+	var GamesView = Backbone.View.extend({
 		template: _.template(templateString, null, {variable: 'data'}),
 
 		initialize: function() {
@@ -14,5 +14,5 @@ define([
 		}
 	});
 
-	return GameGridGamesView;
+	return GamesView;
 });

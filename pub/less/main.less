@@ -1,210 +1,57 @@
 
 @import "reset.less";
 
-@imgPath: '/img';
+// CSS Reset
+@import "bootstrap/reset.less";
 
+// Core variables and mixins
+@import "variables.less"; // Modify this for custom colors, font-sizes, etc
+@import "bootstrap/mixins.less";
 
-/**
- * Colors
- */
-@boxBorder: 1px solid #4D4B49;
-@boxBackground: #262626;
-@boxColor: #B0AEAC;
+// Grid system and page structure
+//@import "bootstrap/scaffolding.less";
+//@import "bootstrap/grid.less";
+//@import "bootstrap/layouts.less";
 
-@sansFontFamily: Arial, sans-serif;
-@monoFontFamily: Consolas, "Courier new", monospace;
+// Base CSS
+//@import "bootstrap/type.less";
+//@import "bootstrap/code.less";
+//@import "bootstrap/forms.less";
+//@import "bootstrap/tables.less";
 
-@baseFontFamily: @sansFontFamily;
-@baseFontSize: 12px;
+// Components: common
+@import "bootstrap/sprites.less";
+//@import "bootstrap/dropdowns.less";
+//@import "bootstrap/wells.less";
+//@import "bootstrap/component-animations.less";
+//@import "bootstrap/close.less";
 
-/**
- * Crap
- */
-body {
-	background-color: #000;
-}
+// Components: Buttons & Alerts
+@import "bootstrap/buttons.less";
+@import "bootstrap/button-groups.less";
+@import "bootstrap/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
 
-.page-wrapper {
-	background-image: linear-gradient(top, #3B3938 70px, black 270px);
-	background-image: -moz-linear-gradient(top, #3B3938 70px, black 270px);
-	background-image: -webkit-linear-gradient(top, #3B3938 70px, black 270px);
+// Components: Nav
+//@import "bootstrap/navs.less";
+//@import "bootstrap/navbar.less";
+//@import "bootstrap/breadcrumbs.less";
+//@import "bootstrap/pagination.less";
+//@import "bootstrap/pager.less";
 
-	font-family: @baseFontFamily;
-	font-size: @baseFontSize;
+// Components: Popovers
+//@import "bootstrap/modals.less";
+//@import "bootstrap/tooltip.less";
+//@import "bootstrap/popovers.less";
 
-	.clear {
-		clear: both;
-	}
+// Components: Misc
+//@import "bootstrap/thumbnails.less";
+//@import "bootstrap/labels-badges.less";
+@import "bootstrap/progress-bars.less";
+//@import "bootstrap/accordion.less";
+//@import "bootstrap/carousel.less";
+//@import "bootstrap/hero-unit.less";
 
-	.container {
-		margin: 0 auto;
-	}
+// Utility classes
+//@import "bootstrap/utilities.less"; // Has to be last to override when necessary
 
-	header {
-		height: 60px;
-		background: transparent url('@{imgPath}/header-bg.png') 0px 0px repeat-x;
-
-		h1 {
-			float: left;
-			margin: 13px 20px 0 0;
-			color: #331;
-			font-size: 32px;
-			text-shadow: #fff 0px 0px 13px;
-		}
-		.navigation {
-			padding: 30px 20px 0 0;
-			float: right;
-
-			li {
-				display: inline-block;
-				float: left;
-				margin-left: 20px;
-
-				a {
-					color: #aaa;
-					text-decoration: none;
-				}
-			}
-		}
-	}
-
-	.body {
-		#about {
-		}
-
-		.sidebar {
-			border: @boxBorder;
-			background: @boxBackground;
-			color: @boxColor;
-			margin: 0;
-			font-family: @monoFontFamily;
-
-			h2 {
-				background: transparent url('@{imgPath}/header-bg.png') 0px -24px repeat-x;
-				margin: 0;
-				padding: 13px 13px 8px 13px;
-			}
-
-			fieldset {
-				margin: 10px 0 0 0;
-			}
-			legend {
-				display: block;
-				margin: 15px 0 5px 0;
-				padding: 4px;
-				border-bottom: 1px solid #ccc;
-				width: 100%;
-				font-style: italic;
-				-moz-box-sizing: border-box;
-				-webkit-box-sizing: border-box;
-				box-sizing: border-box;
-    		}
-
-			.filter {
-				font-family: @monoFontFamily;
-				background: transparent;
-				color: #778811;
-				border: none;
-				border-radius: none;
-				cursor: pointer;
-			}
-			.filter:hover {
-				color: #8BC53F;
-			}
-			.filter.active {
-				background: #1A1A1A;
-				color: #8BC53F;
-			}
-		}
-
-		.content {
-			border: @boxBorder;
-			background: @boxBackground;
-			color: @boxColor;
-			margin: 20px 0 0 0;
-		}
-
-		input[type=text] {
-			background: #82807C;
-			color: #CDCAC1;
-			border: #82807C 1px solid;
-		}
-	}
-
-	footer {
-		font-size: 12px;
-		font-family: @monoFontFamily;
-		margin: 20px 0 0 0;
-
-		a {
-			color: #444;
-			text-decoration: none;
-		}
-		a:hover {
-			text-decoration: underline;
-		}
-	}
-}
-
-
-/**
- * Structure
- */
-
-@containerWidth: 1200px;
-@sidebarWidth: 300px;
-.container {
-	width: @containerWidth;
-}
-.sidebar {
-	width: @sidebarWidth;
-	float: right;
-}
-.content {
-	width: @containerWidth - @sidebarWidth - 20px;
-}
-
-@media (max-width: 1200px) {
-	@containerWidth: 940px;
-	@sidebarWidth: 200px;
-	.container {
-		width: @containerWidth;
-	}
-	.sidebar {
-		width: @sidebarWidth;
-		float: right;
-	}
-	.content {
-		width: @containerWidth - @sidebarWidth - 20px;
-	}
-}
-
-@media (max-width: 940px) {
-	@containerWidth: 767px;
-	@sidebarWidth: 200px;
-	.container {
-		width: @containerWidth;
-	}
-	.sidebar {
-		width: @sidebarWidth;
-		float: right;
-	}
-	.content {
-		width: @containerWidth - @sidebarWidth - 20px;
-	}
-}
-
-@media (max-width: 767px) {
-	.container,
-	.sidebar,
-	.content {
-		width: 100%;
-		float: none;
-	}
-	.page-wrapper .container .sidebar,
-	.page-wrapper .container .content {
-		border-left: none;
-		border-right: none;
-		margin: 0;
-	}
-}
+@import "site.less";

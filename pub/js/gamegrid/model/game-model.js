@@ -1,9 +1,11 @@
-define([], function(){
 
-	var GameGridGameModel = Backbone.Model.extend({
+define([
+	'config'
+], function(config){
 
+	var GameModel = Backbone.Model.extend({
+		urlRoot: config.gamesUrl
 	});
 
-	return GameGridGameModel;
-
+	return GameModel;
 });

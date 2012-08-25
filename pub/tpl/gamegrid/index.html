@@ -2,10 +2,25 @@
 <section id="gamegrid-filters" class="sidebar"></section>
 
 <section class="content">
+
 	<div id="gamegrid-controls" class="controls">
-		<input class="span4" size="16" type="text" placeholder="Add Steam profile">
-		<button class="btn" type="button">Go!</button>
+		<div class="input-container">
+			<input class="add-profile-input" size="16" type="text" placeholder="Paste your Steam profile here">
+			<button class="add-profile">Go!</button>
+		</div>
+
+		<div class="progress-container" style="display: none;">
+			<div class="progress progress-striped active">
+				<div class="bar bar-neutral"></div>
+				<div class="bar bar-danger bar-error"></div>
+				<div class="bar bar-success"></div>
+			</div>
+			<div class="progress-caption"></div>
+		</div>
+
+		<div class="add-profile-messages"></div>
 	</div>
 
 	<div id="gamegrid-games"></div>
+
 </section>

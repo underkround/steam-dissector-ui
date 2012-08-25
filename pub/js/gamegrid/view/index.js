@@ -4,39 +4,42 @@ define([
 	'gamegrid/view/filters',
 	'gamegrid/view/games',
 	'gamegrid/view/controls',
-	'gamegrid/model/source-collection',
+	'gamegrid/model/profile-games-composite',
 ], function(
 	templateString,
-	GameGridFiltersView,
-	GameGridGamesView,
-	GameGridControlsView,
-	GameGridSourceCollection
+	FiltersView,
+	GamesView,
+	ControlsView,
+	ProfileGamesComposite
 ) {
 
-	var GameGridIndexView = Backbone.View.extend({
+	var IndexView = Backbone.View.extend({
 		template: _.template(templateString, null, {variable: 'data'}),
 
 		initialize: function() {
-			this.model = new GameGridSourceCollection();
+			this.model = new ProfileGamesComposite();
+			this.model.on('all', function(event) {
+				console.log('Composite event: ', event, arguments);
+			});
+			this.model.on('addgames:end', function(){ console.log('composite addgames done')});
 		},
 
 		render: function() {
 			this.$el.html(this.template({}));
 
-			var filtersView = new GameGridFiltersView({
+			var filtersView = new FiltersView({
 				el: this.$('#gamegrid-filters'),
 				model: this.model
 			});
 			filtersView.render();
 
-			var controlsView = new GameGridControlsView({
+			var controlsView = new ControlsView({
 				el: this.$('#gamegrid-controls'),
 				model: this.model
 			});
 			controlsView.render();
 
-			console.log(GameGridGamesView);
-			var gamesView = new GameGridGamesView({
+			var gamesView = new GamesView({
 				el: this.$('#gamegrid-games'),
 				model: this.model.games
 			});
@@ -46,5 +49,5 @@ define([
 		}
 	});
 
-	return GameGridIndexView;
+	return IndexView;
 });

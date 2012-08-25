@@ -3,7 +3,7 @@ define([
 	'text!templates/gamegrid/filters.html'
 ], function(templateString) {
 
-	var GameGridFiltersView = Backbone.View.extend({
+	var FiltersView = Backbone.View.extend({
 		template: _.template(templateString, null, {variable: 'data'}),
 
 		events: {
@@ -11,17 +11,23 @@ define([
 		},
 
 		initialize: function() {
+			this.featuresEl   = this.$('.features');
+			this.genresEl     = this.$('.genres');
+			this.developersEl = this.$('.developers');
+			this.publishersEl = this.$('.publishers');
 		},
 
-		onFilterClick: function(event){
+		onFilterClick: function(event) {
 			$(event.currentTarget).toggleClass('active');
 			this.updateFilters();
 		},
 
 		updateFilters: function(){
+			var filters = [];
 			this.$('.filter.active').each(function(){
 				console.log(this);
 			});
+			console.log('using filters: ', filters);
 		},
 
 		render: function(){
@@ -29,5 +35,5 @@ define([
 		}
 	});
 
-	return GameGridFiltersView;
+	return FiltersView;
 });
