@@ -1586,6 +1586,7 @@ strong {
   background: #111;
   border: none;
   color: #778811;
+  padding: 2px 0px 2px 5px;
 }
 .page-wrapper .body button {
   font-family: Consolas, "Courier new", monospace;
@@ -1614,21 +1615,24 @@ strong {
   text-shadow: 0 1px 7px #000;
   font-weight: bold;
 }
-.page-wrapper .body .sidebar fieldset {
+.page-wrapper .body .sidebar .filter-set {
   margin: 10px 0 0 0;
 }
-.page-wrapper .body .sidebar legend {
+.page-wrapper .body .sidebar .filter-set .title {
   display: block;
   margin: 15px 0 5px 0;
   padding: 4px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #373E26;
   width: 100%;
   font-style: italic;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.page-wrapper .body .sidebar .filter {
+.page-wrapper .body .sidebar .filter-set .filters {
+  margin: 5px;
+}
+.page-wrapper .body .sidebar .filter-set .filter {
   font-family: Consolas, "Courier new", monospace;
   background: transparent;
   color: #778811;
@@ -1636,18 +1640,21 @@ strong {
   border-radius: none;
   cursor: pointer;
 }
-.page-wrapper .body .sidebar .filter:hover,
-.page-wrapper .body .sidebar .filter.active {
+.page-wrapper .body .sidebar .filter-set .filter:hover,
+.page-wrapper .body .sidebar .filter-set .filter.active {
   background: #1A1A1A;
   color: #8bc53f;
 }
 .page-wrapper .body .content {
-  border: 1px solid #4d4b49;
-  background: #262626;
   color: #b0aeac;
   margin: 20px 0 0 0;
 }
+.page-wrapper .body .content #gamegrid-controls .add-profile-input {
+  width: 500px;
+}
 .page-wrapper .body .content #gamegrid-games {
+  border: 1px solid #4d4b49;
+  background: #262626;
   margin: 10px 5px;
 }
 .page-wrapper .body .content #gamegrid-games table {
@@ -1673,16 +1680,55 @@ strong {
   background: #222;
   border-top: 1px solid #1c1c1c;
 }
-.page-wrapper .body .controls {
+.page-wrapper .body .content #gamegrid-games .ordering button:not(.active) .icon {
+  display: none;
+}
+.page-wrapper .body .content #gamegrid-games .ordering button.active-asc .icon {
+  background-position: -288px -120px;
+}
+.page-wrapper .body .content #gamegrid-games .ordering button.active-desc .icon {
+  background-position: -313px -119px;
+}
+.page-wrapper .body .content #gamegrid-games .ordering .owner {
+  position: relative;
+  text-align: left;
+}
+.page-wrapper .body .content #gamegrid-games .ordering .owner .profile {
+  display: none;
+  padding: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  position: absolute;
+  width: 200px;
+  background: #3a3a3a;
+}
+.page-wrapper .body .content #gamegrid-games .ordering .owner .profile .avatar {
+  float: left;
   margin: 5px;
 }
-.page-wrapper .body .controls .add-profile-input {
-  width: 500px;
+.page-wrapper .body .content #gamegrid-games .ordering .owner .profile .details {
+  text-align: left;
+}
+.page-wrapper .body .content #gamegrid-games .ordering .owner:hover .profile {
+  display: block;
+}
+.page-wrapper .body .content #gamegrid-games .game .logo {
+  width: 184px;
+  margin: 5px;
+  float: left;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.page-wrapper .body .content #gamegrid-games .game .details {
+  margin-left: 194px;
 }
 .page-wrapper footer {
   font-size: 12px;
   font-family: Consolas, "Courier new", monospace;
   margin: 20px 0 0 0;
+  clear: both;
 }
 .page-wrapper footer a {
   color: #444;
@@ -1695,37 +1741,37 @@ strong {
  * Structure
  */
 .container {
-  width: 1200px;
+  width: 1180px;
 }
 .sidebar {
   width: 300px;
   float: right;
 }
 .content {
-  width: 880px;
+  width: 860px;
 }
 @media (max-width: 1200px) {
   .container {
-    width: 940px;
+    width: 910px;
   }
   .sidebar {
     width: 200px;
     float: right;
   }
   .content {
-    width: 720px;
+    width: 690px;
   }
 }
-@media (max-width: 940px) {
+@media (max-width: 920px) {
   .container {
-    width: 767px;
+    width: 760px;
   }
   .sidebar {
     width: 200px;
     float: right;
   }
   .content {
-    width: 547px;
+    width: 540px;
   }
 }
 @media (max-width: 767px) {

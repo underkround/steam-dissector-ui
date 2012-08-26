@@ -92,6 +92,7 @@ strong {
 			background: #111;
 			border: none;
 			color: @inputColor;
+			padding: 2px 0px 2px 5px;
 		}
 		button {
 			font-family: @monoFontFamily;
@@ -125,48 +126,54 @@ strong {
 				font-weight: bold;
 			}
 
-			fieldset {
+			.filter-set {
 				margin: 10px 0 0 0;
-			}
 
-			legend {
-				display: block;
-				margin: 15px 0 5px 0;
-				padding: 4px;
-				border-bottom: 1px solid #ccc;
-				width: 100%;
-				font-style: italic;
-				-moz-box-sizing: border-box;
-				-webkit-box-sizing: border-box;
-				box-sizing: border-box;
-    		}
-
-			.filter {
-				font-family: @monoFontFamily;
-				background: transparent;
-				color: @buttonColor;
-				border: none;
-				border-radius: none;
-				cursor: pointer;
-			}
-			.filter:hover,
-			.filter.active {
-				background: #1A1A1A;
-				color: @activeButtonColor;
-			}
-
-			.filter .icon {
-
+				.title {
+					display: block;
+					margin: 15px 0 5px 0;
+					padding: 4px;
+					border-bottom: 1px solid #373E26;
+					width: 100%;
+					font-style: italic;
+					-moz-box-sizing: border-box;
+					-webkit-box-sizing: border-box;
+					box-sizing: border-box;
+	    		}
+	    		.filters {
+	    			margin: 5px;
+	    		}
+				.filter {
+					font-family: @monoFontFamily;
+					background: transparent;
+					color: @buttonColor;
+					border: none;
+					border-radius: none;
+					cursor: pointer;
+				}
+				.filter:hover,
+				.filter.active {
+					background: #1A1A1A;
+					color: @activeButtonColor;
+				}
 			}
 		}
 
 		.content {
-			border: @boxBorder;
-			background: @boxBackground;
 			color: @textColor;
 			margin: 20px 0 0 0;
 
+			#gamegrid-controls {
+				//margin: 5px;
+
+				.add-profile-input {
+					width: 500px;
+				}
+			}
+
 			#gamegrid-games {
+				border: @boxBorder;
+				background: @boxBackground;
 				margin: 10px 5px;
 
 				table {
@@ -180,6 +187,7 @@ strong {
 					th {
 						text-align: left;
 						font-weight: bold;
+
 						button {
 							margin: 0;
 							padding: 0;
@@ -193,13 +201,58 @@ strong {
 						border-top: 1px solid #1c1c1c;
 					}
 				}
-			}
-		}
 
-		.controls {
-			margin: 5px;
-			.add-profile-input {
-				width: 500px;
+				.ordering {
+					button:not(.active) .icon {
+						display: none;
+					}
+					button.active-asc .icon {
+						.icon-chevron-up;
+					}
+					button.active-desc .icon {
+						.icon-chevron-down;
+					}
+
+					.owner {
+						position: relative;
+						text-align: left;
+					}
+
+					.owner .profile {
+						display: none;
+						padding: 10px;
+						.border-radius(5px);
+						position: absolute;
+						width: 200px;
+						background: #3a3a3a;
+
+						.avatar {
+							float: left;
+							margin: 5px;
+						}
+						.details {
+							text-align: left;
+						}
+					}
+					.owner:hover .profile {
+						display: block;
+					}
+				}
+
+				.game {
+					@logoWidth: 184px;
+					@logoMargin: 5px;
+					.logo {
+						width: @logoWidth;
+						margin: @logoMargin;
+						float: left;
+						.border-radius(5px);
+					}
+
+					.details {
+						margin-left: @logoWidth + @logoMargin * 2;
+					}
+				}
 			}
 		}
 	}
@@ -208,6 +261,7 @@ strong {
 		font-size: 12px;
 		font-family: @monoFontFamily;
 		margin: 20px 0 0 0;
+		clear: both;
 
 		a {
 			color: #444;
@@ -224,7 +278,7 @@ strong {
  * Structure
  */
 
-@containerWidth: 1200px;
+@containerWidth: 1180px;
 @sidebarWidth: 300px;
 .container {
 	width: @containerWidth;
@@ -238,7 +292,7 @@ strong {
 }
 
 @media (max-width: 1200px) {
-	@containerWidth: 940px;
+	@containerWidth: 910px;
 	@sidebarWidth: 200px;
 	.container {
 		width: @containerWidth;
@@ -252,8 +306,8 @@ strong {
 	}
 }
 
-@media (max-width: 940px) {
-	@containerWidth: 767px;
+@media (max-width: 920px) {
+	@containerWidth: 760px;
 	@sidebarWidth: 200px;
 	.container {
 		width: @containerWidth;
