@@ -37,10 +37,11 @@ define([
 		},
 
 		sortBy: function() {
+			var comparator = _.bind(this.comparator, this);
 			if (this.reverse) {
-				return _.sortBy(this.models, this.comparator).reverse();
+				return _.sortBy(this.models, comparator).reverse();
 			}
-			return _.sortBy(this.models, this.comparator);
+			return _.sortBy(this.models, comparator);
 		},
 
 		addGames: function(idsToAdd) {
