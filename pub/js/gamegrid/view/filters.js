@@ -1,7 +1,15 @@
 
 define([
+	'jquery',
+	'underscore',
+	'backbone',
 	'text!templates/gamegrid/filters.html'
-], function(templateString) {
+], function(
+	$,
+	_,
+	Backbone,
+	templateString
+) {
 
 	var FiltersView = Backbone.View.extend({
 		template: _.template(templateString, null, {variable: 'data'}),
@@ -29,9 +37,17 @@ define([
 		},
 
 		updateFilters: function(){
-			var filters = [];
+			var filters = {};
 			this.$('.filter.active').each(function(){
-				console.log(this);
+				var $this = $(this),
+					value = $this.val(),
+					set = $this.attr('data-set');
+				if (set) {
+					if ( ! filters[set]) {
+						filters[set] = [];
+					}
+					filters[set].push(value);
+				}
 			});
 			console.log('using filters: ', filters);
 		},

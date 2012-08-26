@@ -1,7 +1,15 @@
 
 define([
+	'jquery',
+	'underscore',
+	'backbone',
 	'text!templates/gamegrid/games.html'
-], function(templateString) {
+], function(
+	$,
+	_,
+	Backbone,
+	templateString
+) {
 
 	var GamesView = Backbone.View.extend({
 		template: _.template(templateString, null, {variable: 'data'}),

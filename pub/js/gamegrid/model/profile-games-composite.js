@@ -7,12 +7,22 @@
  */
 
 define([
+	'underscore',
+	'backbone',
 	'config',
 	'gamegrid/model/game-collection',
 	'gamegrid/model/profile-collection',
 	'gamegrid/model/game-model',
 	'gamegrid/model/profile-model'
-], function(config, GameCollection, ProfileCollection, GameModel, ProfileModel){
+], function(
+	_,
+	Backbone,
+	config,
+	GameCollection,
+	ProfileCollection,
+	GameModel,
+	ProfileModel
+){
 
 	var ProfileGamesComposite = Backbone.Model.extend({
 		initialize: function() {

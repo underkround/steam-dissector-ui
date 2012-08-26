@@ -9,10 +9,18 @@
  */
 
 define([
+	'underscore',
+	'backbone',
 	'config',
 	'utils',
 	'gamegrid/model/game-model'
-], function(config, utils, GameModel) {
+], function(
+	_,
+	Backbone,
+	config,
+	utils,
+	GameModel
+) {
 
 	var GameCollection = Backbone.Collection.extend({
 		url: config.gamesUrl,

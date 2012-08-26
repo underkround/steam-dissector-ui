@@ -1,4 +1,9 @@
-define(['underscore'], (function(_){
+
+define([
+	'underscore'
+], function(
+	_
+){
 
 	var percentValue = function(done, from) {
 		return (from > 0) ? Math.round(done / from * 100) : 0;
@@ -66,4 +71,4 @@ define(['underscore'], (function(_){
 		LoadStatus: LoadStatus
 	};
 
-})(_));
+});

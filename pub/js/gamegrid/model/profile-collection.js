@@ -1,7 +1,13 @@
 
 define([
-	'config'
-], function(config){
+	'underscore',
+	'backbone',
+	'config',
+], function(
+	_,
+	Backbone,
+	config
+){
 
 	var ProfileCollection = Backbone.Collection.extend({
 		url: config.profilesUrl

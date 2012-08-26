@@ -1,11 +1,17 @@
 
 define([
+	'jquery',
+	'underscore',
+	'backbone',
 	'text!templates/gamegrid/index.html',
 	'gamegrid/view/filters',
 	'gamegrid/view/games',
 	'gamegrid/view/controls',
 	'gamegrid/model/profile-games-composite',
 ], function(
+	$,
+	_,
+	Backbone,
 	templateString,
 	FiltersView,
 	GamesView,

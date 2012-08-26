@@ -1,7 +1,15 @@
 
 define([
+	'jquery',
+	'underscore',
+	'backbone',
 	'gamegrid/model/game-collection'
-], function(GameCollection) {
+], function(
+	$,
+	_,
+	Backbone,
+	GameCollection
+) {
 
 	var ControlsView = Backbone.View.extend({
 		events: {
@@ -30,6 +38,8 @@ define([
 				.on('addgames:begin', this.addGamesBegin, this)
 				.on('addgames:done', this.addGamesEnd, this)
 				.on('addgames:tick', this.addGamesTick, this);
+
+			this.inputEl.focus();
 		},
 
 		onAddProfileKeypress: function(event) {
