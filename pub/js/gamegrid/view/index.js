@@ -41,7 +41,7 @@ define([
 
 			var gamesView = new GamesView({
 				el: this.$('#gamegrid-games'),
-				model: this.model.games
+				model: this.model
 			});
 			gamesView.render();
 

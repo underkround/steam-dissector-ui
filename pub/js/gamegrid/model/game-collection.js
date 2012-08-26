@@ -16,19 +16,37 @@ define([
 
 	var GameCollection = Backbone.Collection.extend({
 		url: config.gamesUrl,
+		reverse: false,
+		orderKey: 'name',
 
 		initialize: function() {
 		},
 
+		orderByToggle: function(orderKey) {
+			if (orderKey === this.orderKey) {
+				this.reverse = ! this.reverse;
+			} else {
+				this.orderKey = orderKey;
+				this.reverse = false;
+			}
+			this.sort();
+		},
+
+		comparator: function(game) {
+			return game.get(this.orderKey) || 0;
+		},
+
+		sortBy: function() {
+			if (this.reverse) {
+				return _.sortBy(this.models, this.comparator).reverse();
+			}
+			return _.sortBy(this.models, this.comparator);
+		},
+
 		addGames: function(idsToAdd) {
-			console.log('adding games', idsToAdd);
-			var self = this;
-			var existingIds = this.pluck('id');
-			var newIds = _.difference(idsToAdd, existingIds);
-//			var allDone = _.after(newIds.length, function() {
-//				console.log('composite -> addGames -> allDone');
-//				self.trigger('addgames:end', newIds);
-//			});
+			var self = this,
+				existingIds = this.pluck('id');
+				newIds = _.difference(idsToAdd, existingIds);
 
 			var status = new utils.LoadStatus(newIds, function() {
 				self.trigger('addgames:end', status);
@@ -45,17 +63,30 @@ define([
 						self.trigger('addgames:success', status, id)
 							.trigger('addgames:tick', status, id)
 							.add(game);
-						//allDone();
 					},
 					error: function(){
 						var id = game.get('id');
 						status.error(id);
 						self.trigger('addgames:error', status, id)
 							.trigger('addgames:tick', status, id);
-						//allDone();
 					}
 				})
 			});
+		},
+
+		getProperties: function() {
+			var properties = {
+				developers: [],
+				features: [],
+				genres: [],
+				publishers: []
+			};
+			this.each(function(game) {
+				for (key in properties) {
+					properties[key] = _.union(properties[key], game.get(key));
+				}
+			});
+			return properties;
 		}
 	});
 

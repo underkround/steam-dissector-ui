@@ -1,90 +1,81 @@
 
 <table>
 	<thead>
-		<tr>
-			<th class="ordering">
-				<button>Name</button>
-				&#47;
-				<button class="active">
-					<span class="icon-white icon-chevron-up" />Year
+		<tr class="ordering">
+			<th class="game-properties">
+				<button class="order-by" value="name">
+					<span class="icon icon-white" />Name
 				</button>
 				&#47;
-				<button class="active">
-					<span class="icon-white icon-chevron-down" />Hours
+				<button class="order-by" value="releaseDate">
+					<span class="icon icon-white" />Released
 				</button>
 				&#47;
-				<button>Rating</button>
+				<button class="order-by" value="owner-hours">
+					<span class="icon icon-white" />Hours
+				</button>
+				&#47;
+				<button class="order-by" value="metascore">
+					<span class="icon icon-white" />Rating
+				</button>
+
 			</th>
-			<th class="owner">
-				<button>Erkki</button>
+			<%
+				var nameMaxChars = 8;
+				_.each(data.profiles, function(profile) {
+					var id = profile.id,
+						name = profile.name,
+						safeTruncateName = (name.length > nameMaxChars)
+							? _.escape(name.substr(0, nameMaxChars - 1)) + '&#8230;'
+							: _.escape(name);
+			%>
+			<th class="order-by owner" value="<%- id %>">
+				<button class="order-by" value="owner-<%- id %>">
+					<span class="icon icon-white" /><%= safeTruncateName %>
+					<div class="profile">
+						<div class="avatar">
+							<img src="<%= profile.avatarMedium %>" alt="<%= name %>" />
+						</div>
+						<div class="details">
+							<strong><%- name %></strong>
+							<br />
+							<strong>Status:</strong> <%- profile.onlineState %>
+							<br />
+							<strong>Games:</strong> <%- profile.games.length %>
+						</div>
+					</div>
+				</button>
 			</th>
-			<th class="owner">
-				<button>Pirjo</button>
-			</th>
-			<th class="owner">
-				<button>Jorma</button>
-			</th>
+			<% }); %>
 		</tr>
 	</thead>
-	<tbody>
-		<tr>
-			<td class="game">
-				<a class="thumbnail span3" href="#">
-					<img src="img/placeholder.png" />
-				</a>
-				<div class="details span9">
-					Game details goes heres
-				</div>
-			</td>
-			<td class="owns owner-1234">
-				3h
-			</td>
-			<td class="owns owner-2345">
-				2h
-			</td>
-			<td class="owns owner-2345">
-				2h
-			</td>
-		</tr>
 
+	<tbody class="games-container">
+		<%
+			_.each(data.games, function(game) {
+				var gameId = game.id;
+		%>
 		<tr>
-			<td class="game row-fluid">
-				<a class="thumbnail span3" href="#">
-					<img src="img/placeholder.png" />
-				</a>
-				<div class="details span9">
+			<td class="game game-<%- gameId %>">
+				<img class="logo" src="<%= game.logoSmall %>" alt="<%- game.name %>" />
+				<div class="details">
+					<strong><%- game.name %></strong>
+					<strong>Score: <%- game.metascore %></strong>
 					Game details goes heres
 				</div>
 			</td>
-			<td class="owns owner-1234">
-				3h
+			<% _.each(data.profiles, function(profile) { %>
+			<td class="owner owner-<%- profile.id %>">
+				<% if (profile.games && profile.games[gameId]) { %>
+					<%- profile.games[gameId].hoursOnRecord %>h
+				<% } else { %>
+					Don't have
+				<% } %>
 			</td>
-			<td class="owns owner-2345">
-				2h
-			</td>
-			<td class="owns owner-2345">
-				2h
-			</td>
+			<% }); %>
 		</tr>
-
-		<tr>
-			<td class="game row-fluid">
-				<a class="thumbnail span3" href="#">
-					<img src="img/placeholder.png" />
-				</a>
-				<div class="details span9">
-					Game details goes heres
-				</div>
-			</td>
-			<td class="owns owner-1234">
-				3h
-			</td>
-			<td class="owns owner-2345">
-				2h
-			</td>
-			<td class="owns owner-2345">
-				2h
-			</td>
-		</tr>
+		<%
+			});
+		%>
 	</tbody>
-</div>
+</table>

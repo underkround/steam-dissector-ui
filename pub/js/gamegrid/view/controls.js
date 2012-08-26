@@ -5,7 +5,8 @@ define([
 
 	var ControlsView = Backbone.View.extend({
 		events: {
-			'click .add-profile': 'onAddProfile'
+			'click .add-profile': 'onAddProfile',
+			'keypress .add-profile-input': 'onAddProfileKeypress'
 		},
 
 		initialize: function() {
@@ -23,20 +24,29 @@ define([
 			// DEBUG
 			//this.model.games.on('all', function(){ console.log('games event', arguments); });
 
-			this.model.games.on('addgames:begin', this.addGamesBegin, this);
-			this.model.games.on('addgames:end', this.addGamesEnd, this);
-			this.model.games.on('addgames:tick', this.addGamesTick, this);
-			this.model.on('addprofile:error', this.endProgress, this);
+			this.model
+				.on('addprofile:error', this.endProgress, this);
+			this.model.games
+				.on('addgames:begin', this.addGamesBegin, this)
+				.on('addgames:end', this.addGamesEnd, this)
+				.on('addgames:tick', this.addGamesTick, this);
+		},
+
+		onAddProfileKeypress: function(event) {
+			if (event.which === 13) {
+				this.onAddProfile();
+			}
 		},
 
 		onAddProfile: function() {
 			var match = this.inputEl.val().match(/[a-zA-Z0-9]+$/);
 			if (match.length === 1) {
+				var profileId = match[0];
 				this.startProgress({
 					neutralPercent: 100,
-					message: 'Loading profile...'
+					message: 'Loading profile ' + profileId + '...'
 				});
-				this.model.addProfile(match[0]);
+				this.model.addProfile(profileId);
 			}
 		},
 

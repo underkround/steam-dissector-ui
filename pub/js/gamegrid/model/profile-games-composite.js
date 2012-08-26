@@ -25,8 +25,8 @@ define([
 			this.profiles.on('add', this.onProfileAdd, this);
 			this.profiles.on('remove', this.onProfileRemove, this);
 
-			window.debug = this;
 			// debug:
+			window.debug = this;
 			//this.games.on('all', function(){ console.log('event games:all', arguments); });
 			//this.profiles.on('all', function(){ console.log('event profiles:all', arguments); });
 		},
@@ -48,29 +48,45 @@ define([
 		},
 
 		onProfileAdd: function(profile) {
-			console.log('onProfileAdd', profile);
-			profile.games.on('reset', this.onProfileGamesReset, this);
-			profile.fetchGames();
+			profile.games.on('reset', this.addGames, this);
+			if (profile.games.length < 1) {
+				profile.fetchGames();
+			}
 		},
 
 		onProfileRemove: function(profile) {
 			// @TODO
-			console.log('onProfileRemove', profile, arguments);
+			console.log('TODO: onProfileRemove', profile, arguments);
 		},
 
-		onProfileGamesReset: function(profileGames) {
-			this.games.addGames(profileGames.pluck('id'));
+		addGames: function(games) {
+			if (_.isArray(games)) {
+				this.games.addGames(games);
+			} else if (_.isObject(games)) {
+				this.games.addGames(games.pluck('id'));
+			} else if (_.isString(games) || _.isNumber(games)) {
+				this.games.addGames([games]);
+			}
 		},
 
-		onGameAdd: function(game) {
-			// @TODO
-			//console.log('onGameAdd', game, arguments);
-		},
-
-		onGameRemove: function(game) {
-			// @TODO
-			//console.log('onGameRemove', game, arguments);
-		},
+		toJSON: function() {
+			var data = {
+				games: this.games.toJSON(),
+				profiles: []
+			};
+			this.profiles.each(function(profile) {
+				var profileId = profile.id;
+				var profileData = profile.toJSON();
+				profileData.games = {};
+				//data.profiles[profileId].games = {};
+				_.each(profile.games.toJSON(), function(profileGame) {
+					profileData.games[profileGame.id] = profileGame;
+					//data.profiles[profileId].games[profileGame.id] = profileGame;
+				});
+				data.profiles.push(profileData);
+			});
+			return data;
+		}
 	});
 
 	return ProfileGamesComposite;
