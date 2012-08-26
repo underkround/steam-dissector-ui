@@ -164,7 +164,7 @@ strong {
 			margin: 20px 0 0 0;
 
 			#gamegrid-controls {
-				//margin: 5px;
+				margin: 0 10px;
 
 				.add-profile-input {
 					width: 500px;
@@ -187,12 +187,20 @@ strong {
 					th {
 						text-align: left;
 						font-weight: bold;
+						height: 50px;
+						vertical-align: middle;
 
 						button {
 							margin: 0;
 							padding: 0;
 							background: transparent;
 						}
+					}
+					th {
+						padding-right: 5px;
+					}
+					th:first {
+						padding-left: 10px;
 					}
 					td {
 						text-align: left;
@@ -203,13 +211,13 @@ strong {
 				}
 
 				.ordering {
-					button:not(.active) .icon {
+					.sort-by:not(.active) .icon {
 						display: none;
 					}
-					button.active-asc .icon {
+					.sort-by.active-asc .icon {
 						.icon-chevron-up;
 					}
-					button.active-desc .icon {
+					.sort-by.active-desc .icon {
 						.icon-chevron-down;
 					}
 

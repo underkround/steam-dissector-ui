@@ -1649,6 +1649,9 @@ strong {
   color: #b0aeac;
   margin: 20px 0 0 0;
 }
+.page-wrapper .body .content #gamegrid-controls {
+  margin: 0 10px;
+}
 .page-wrapper .body .content #gamegrid-controls .add-profile-input {
   width: 500px;
 }
@@ -1668,11 +1671,19 @@ strong {
 .page-wrapper .body .content #gamegrid-games table th {
   text-align: left;
   font-weight: bold;
+  height: 50px;
+  vertical-align: middle;
 }
 .page-wrapper .body .content #gamegrid-games table th button {
   margin: 0;
   padding: 0;
   background: transparent;
+}
+.page-wrapper .body .content #gamegrid-games table th {
+  padding-right: 5px;
+}
+.page-wrapper .body .content #gamegrid-games table th:first {
+  padding-left: 10px;
 }
 .page-wrapper .body .content #gamegrid-games table td {
   text-align: left;
@@ -1680,13 +1691,13 @@ strong {
   background: #222;
   border-top: 1px solid #1c1c1c;
 }
-.page-wrapper .body .content #gamegrid-games .ordering button:not(.active) .icon {
+.page-wrapper .body .content #gamegrid-games .ordering .sort-by:not(.active) .icon {
   display: none;
 }
-.page-wrapper .body .content #gamegrid-games .ordering button.active-asc .icon {
+.page-wrapper .body .content #gamegrid-games .ordering .sort-by.active-asc .icon {
   background-position: -288px -120px;
 }
-.page-wrapper .body .content #gamegrid-games .ordering button.active-desc .icon {
+.page-wrapper .body .content #gamegrid-games .ordering .sort-by.active-desc .icon {
   background-position: -313px -119px;
 }
 .page-wrapper .body .content #gamegrid-games .ordering .owner {
