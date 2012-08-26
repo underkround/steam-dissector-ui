@@ -57,11 +57,39 @@
 		%>
 		<tr>
 			<td class="game game-<%- gameId %>">
-				<img class="logo" src="<%= game.logoSmall %>" alt="<%- game.name %>" />
+				<a href="<%- game.storeLink %>">
+					<img class="logo" src="<%= game.logoSmall %>" alt="<%- game.name %>" />
+				</a>
 				<div class="details">
 					<strong><%- game.name %></strong>
-					<strong>Score: <%- game.metascore %></strong>
-					Game details goes heres
+					<br />
+					<strong>Score:</strong>
+					<%- game.metascore %>
+					<br />
+
+					<% if(game.features) { %>
+					<strong>Features:</strong>
+					<%- (game.features) ? game.features.join(', ') : '-' %>
+					<br />
+					<% } %>
+
+					<% if (game.genres) { %>
+					<strong>Genres:</strong>
+					<%- (game.genres) ? game.genres.join(', ') : '-' %>
+					<br />
+					<% } %>
+
+					<% if (game.developers) { %>
+					<strong>Developers:</strong>
+					<%- (game.developers) ? game.developers.join(', ') : '-' %>
+					<br />
+					<% } %>
+
+					<% if (game.publishers) { %>
+					<strong>Publishers:</strong>
+					<%- (game.publishers) ? game.publishers.join(', ') : '-' %>
+					<br />
+					<% } %>
 				</div>
 			</td>
 			<% _.each(data.profiles, function(profile) { %>
