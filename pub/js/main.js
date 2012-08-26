@@ -27,20 +27,12 @@ require.config({
 require([
 	'underscore',
 	'backbone',
-	'router'
-], function(_, Backbone, Router) {
+	'gamegrid/view/index'
+], function(_, Backbone, GameGridIndex) {
 
-	Router.initialize();
-
-	$(document).on('click', 'a:not([data-bypass])', function(event){
-		var href = $(this).attr('href'),
-			protocol = this.protocol + '//';
-		if (href &&
-			href.slice(0, protocol.length) !== protocol &&
-			href.indexOf('javascript:') !== 0
-		) {
-			event.preventDefault();
-			Backbone.history.navigate(href, true);
-		}
+	var gameGridIndex = new GameGridIndex({
+		el: '#app'
 	});
+	gameGridIndex.render();
+
 });
