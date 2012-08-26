@@ -14,7 +14,7 @@ define([
 			this.model.games
 				.on('add', this.onGameAdd, this)
 				.on('remove', this.onGameRemove, this)
-				.on('addgames:end', this.render, this)
+				.on('addgames:done', this.render, this)
 				.on('reset', this.render, this);
 
 			// debug
@@ -41,24 +41,26 @@ define([
 		},
 
 		render: function(){
-			var data = this.model.toJSON(),
-				games = this.model.games;
-			data.orderKeys = {
-				name: 'Name',
-				releaseDate: 'Released',
-				ownerHours: 'Hours',
-				metascore: 'Rating'
-			};
+			var games = this.model.games;
+			if ( ! games.isEmpty()) {
+				var data = this.model.toJSON();
+				data.orderKeys = {
+					name: 'Name',
+					releaseDate: 'Released',
+					ownerHours: 'Hours',
+					metascore: 'Rating'
+				};
 
-			this.$el.html(this.template(data));
+				this.$el.html(this.template(data));
 
-			//this.$('img').lazyload(); // disabled: was serious CPU-eater on large page
-
-			var orderBy = this.$('.order-by[value="' + games.orderKey + '"]');
-			if (games.reverse) {
-				orderBy.addClass('active active-desc');
+				var orderBy = this.$('.order-by[value="' + games.orderKey + '"]');
+				if (games.reverse) {
+					orderBy.addClass('active active-desc');
+				} else {
+					orderBy.addClass('active active-asc');
+				}
 			} else {
-				orderBy.addClass('active active-asc');
+				this.$el.html('');
 			}
 		}
 	});

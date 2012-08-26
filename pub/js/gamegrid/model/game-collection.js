@@ -2,7 +2,7 @@
  *
  * Events:
  *   addgames:begin     (status)
- *   addgames:end       (status)
+ *   addgames:done      (status)
  *   addgames:tick      (status, id)
  *   addgames:success   (status, id)
  *   addgames:error     (status, id)
@@ -50,7 +50,7 @@ define([
 				newIds = _.difference(idsToAdd, existingIds);
 
 			var status = new utils.LoadStatus(newIds, function() {
-				self.trigger('addgames:end', status);
+				self.trigger('addgames:done', status);
 			});
 
 			this.trigger('addgames:begin', status);
@@ -83,8 +83,12 @@ define([
 				publishers: []
 			};
 			this.each(function(game) {
+				var gameProperties;
 				for (key in properties) {
-					properties[key] = _.union(properties[key], game.get(key));
+					gameProperties = game.get(key);
+					if (gameProperties) {
+						properties[key] = _.union(properties[key], gameProperties);
+					}
 				}
 			});
 			return properties;

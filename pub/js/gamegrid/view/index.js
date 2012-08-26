@@ -21,7 +21,7 @@ define([
 			this.model.on('all', function(event) {
 				console.log('Composite event: ', event, arguments);
 			});
-			this.model.on('addgames:end', function(){ console.log('composite addgames done')});
+			this.model.on('addgames:done', function(){ console.log('composite addgames done')});
 		},
 
 		render: function() {

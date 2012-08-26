@@ -28,7 +28,7 @@ define([
 				.on('addprofile:error', this.endProgress, this);
 			this.model.games
 				.on('addgames:begin', this.addGamesBegin, this)
-				.on('addgames:end', this.addGamesEnd, this)
+				.on('addgames:done', this.addGamesEnd, this)
 				.on('addgames:tick', this.addGamesTick, this);
 		},
 

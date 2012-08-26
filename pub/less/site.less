@@ -112,11 +112,15 @@ strong {
 		}
 
 		.sidebar {
-			border: @boxBorder;
-			background: @boxBackground;
-			color: @textColor;
-			margin: 0;
-			font-family: @monoFontFamily;
+			.wrapper {
+				color: @textColor;
+				margin: 0;
+				font-family: @monoFontFamily;
+			}
+			.wrapper.box {
+				border: @boxBorder;
+				background: @boxBackground;
+			}
 
 			h2 {
 				background: transparent url('@{imgPath}/header-bg.png') 0px -24px repeat-x;
@@ -169,12 +173,23 @@ strong {
 				.add-profile-input {
 					width: 500px;
 				}
+
+				.progress-container {
+					.progress-caption {
+						font-style: italic;
+						margin-bottom: 4px;
+					}
+				}
 			}
 
 			#gamegrid-games {
-				border: @boxBorder;
-				background: @boxBackground;
-				margin: 10px 5px;
+				.wrapper {
+					margin: 10px 5px;
+				}
+				.wrapper.box {
+					border: @boxBorder;
+					background: @boxBackground;
+				}
 
 				table {
 					width: 100%;
@@ -196,12 +211,6 @@ strong {
 							background: transparent;
 						}
 					}
-					th {
-						padding-right: 5px;
-					}
-					th:first {
-						padding-left: 10px;
-					}
 					td {
 						text-align: left;
 						vertical-align: top;
@@ -211,14 +220,18 @@ strong {
 				}
 
 				.ordering {
-					.sort-by:not(.active) .icon {
+					.order-by:not(.active) .icon {
 						display: none;
 					}
-					.sort-by.active-asc .icon {
+					.order-by.active-asc .icon {
 						.icon-chevron-up;
 					}
-					.sort-by.active-desc .icon {
+					.order-by.active-desc .icon {
 						.icon-chevron-down;
+					}
+
+					.game-properties {
+						padding-left: 10px;
 					}
 
 					.owner {
@@ -227,6 +240,7 @@ strong {
 					}
 
 					.owner .profile {
+						padding-right: 5px;
 						display: none;
 						padding: 10px;
 						.border-radius(5px);
@@ -247,18 +261,25 @@ strong {
 					}
 				}
 
-				.game {
-					@logoWidth: 184px;
-					@logoMargin: 5px;
-					.logo {
-						width: @logoWidth;
-						margin: @logoMargin;
-						float: left;
-						.border-radius(5px);
+				.games-container {
+					.game {
+						@logoWidth: 184px;
+						@logoMargin: 5px;
+
+						.logo {
+							width: @logoWidth;
+							margin: @logoMargin;
+							float: left;
+							.border-radius(5px);
+						}
+
+						.details {
+							margin-left: @logoWidth + @logoMargin * 2;
+						}
 					}
 
-					.details {
-						margin-left: @logoWidth + @logoMargin * 2;
+					.owner {
+						border-left: 1px solid #2a2a2a;
 					}
 				}
 			}
@@ -268,7 +289,8 @@ strong {
 	footer {
 		font-size: 12px;
 		font-family: @monoFontFamily;
-		margin: 20px 0 0 0;
+		margin: 0;
+		padding: 20px 0 20px 0;
 		clear: both;
 
 		a {

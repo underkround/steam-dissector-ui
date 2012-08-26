@@ -1,109 +1,111 @@
 
-<table>
-	<thead>
-		<tr class="ordering">
-			<th class="game-properties">
-				<button class="order-by" value="name">
-					<span class="icon icon-white" />Name
-				</button>
-				&#47;
-				<button class="order-by" value="releaseDate">
-					<span class="icon icon-white" />Released
-				</button>
-				&#47;
-				<button class="order-by" value="owner-hours">
-					<span class="icon icon-white" />Hours
-				</button>
-				&#47;
-				<button class="order-by" value="metascore">
-					<span class="icon icon-white" />Rating
-				</button>
+<div class="wrapper box">
+	<table>
+		<thead>
+			<tr class="ordering">
+				<th class="game-properties">
+					<button class="order-by" value="name">
+						<span class="icon icon-white" />Name
+					</button>
+					&#47;
+					<button class="order-by" value="releaseDate">
+						<span class="icon icon-white" />Released
+					</button>
+					&#47;
+					<button class="order-by" value="owner-hours">
+						<span class="icon icon-white" />Hours
+					</button>
+					&#47;
+					<button class="order-by" value="metascore">
+						<span class="icon icon-white" />Rating
+					</button>
 
-			</th>
+				</th>
+				<%
+					var nameMaxChars = 8;
+					_.each(data.profiles, function(profile) {
+						var id = profile.id,
+							name = profile.name,
+							safeTruncateName = (name.length > nameMaxChars)
+								? _.escape(name.substr(0, nameMaxChars - 1)) + '&#8230;'
+								: _.escape(name);
+				%>
+				<th class="order-by owner" value="<%- id %>">
+					<button class="order-by" value="owner-<%- id %>">
+						<span class="icon icon-white" /><%= safeTruncateName %>
+						<div class="profile">
+							<div class="avatar">
+								<img src="<%= profile.avatarMedium %>" alt="<%= name %>" />
+							</div>
+							<div class="details">
+								<strong><%- name %></strong>
+								<br />
+								<strong>Status:</strong> <%- profile.onlineState %>
+								<br />
+								<strong>Games:</strong> <%- profile.games.length %>
+							</div>
+						</div>
+					</button>
+				</th>
+				<% }); %>
+			</tr>
+		</thead>
+
+		<tbody class="games-container">
 			<%
-				var nameMaxChars = 8;
-				_.each(data.profiles, function(profile) {
-					var id = profile.id,
-						name = profile.name,
-						safeTruncateName = (name.length > nameMaxChars)
-							? _.escape(name.substr(0, nameMaxChars - 1)) + '&#8230;'
-							: _.escape(name);
+				_.each(data.games, function(game) {
+					var gameId = game.id;
 			%>
-			<th class="order-by owner" value="<%- id %>">
-				<button class="order-by" value="owner-<%- id %>">
-					<span class="icon icon-white" /><%= safeTruncateName %>
-					<div class="profile">
-						<div class="avatar">
-							<img src="<%= profile.avatarMedium %>" alt="<%= name %>" />
-						</div>
-						<div class="details">
-							<strong><%- name %></strong>
-							<br />
-							<strong>Status:</strong> <%- profile.onlineState %>
-							<br />
-							<strong>Games:</strong> <%- profile.games.length %>
-						</div>
+			<tr>
+				<td class="game game-<%- gameId %>">
+					<a href="<%- game.storeLink %>">
+						<img class="logo" src="<%= game.logoSmall %>" alt="<%- game.name %>" />
+					</a>
+					<div class="details">
+						<strong><%- game.name %></strong>
+						<br />
+						<strong>Score:</strong>
+						<%- game.metascore %>
+						<br />
+
+						<% if(game.features) { %>
+						<strong>Features:</strong>
+						<%- (game.features) ? game.features.join(', ') : '-' %>
+						<br />
+						<% } %>
+
+						<% if (game.genres) { %>
+						<strong>Genres:</strong>
+						<%- (game.genres) ? game.genres.join(', ') : '-' %>
+						<br />
+						<% } %>
+
+						<% if (game.developers) { %>
+						<strong>Developers:</strong>
+						<%- (game.developers) ? game.developers.join(', ') : '-' %>
+						<br />
+						<% } %>
+
+						<% if (game.publishers) { %>
+						<strong>Publishers:</strong>
+						<%- (game.publishers) ? game.publishers.join(', ') : '-' %>
+						<br />
+						<% } %>
 					</div>
-				</button>
-			</th>
-			<% }); %>
-		</tr>
-	</thead>
-
-	<tbody class="games-container">
-		<%
-			_.each(data.games, function(game) {
-				var gameId = game.id;
-		%>
-		<tr>
-			<td class="game game-<%- gameId %>">
-				<a href="<%- game.storeLink %>">
-					<img class="logo" src="<%= game.logoSmall %>" alt="<%- game.name %>" />
-				</a>
-				<div class="details">
-					<strong><%- game.name %></strong>
-					<br />
-					<strong>Score:</strong>
-					<%- game.metascore %>
-					<br />
-
-					<% if(game.features) { %>
-					<strong>Features:</strong>
-					<%- (game.features) ? game.features.join(', ') : '-' %>
-					<br />
+				</td>
+				<% _.each(data.profiles, function(profile) { %>
+				<td class="owner owner-<%- profile.id %>">
+					<% if (profile.games && profile.games[gameId]) { %>
+						<%- profile.games[gameId].hoursOnRecord %>h
+					<% } else { %>
+						Don't have
 					<% } %>
-
-					<% if (game.genres) { %>
-					<strong>Genres:</strong>
-					<%- (game.genres) ? game.genres.join(', ') : '-' %>
-					<br />
-					<% } %>
-
-					<% if (game.developers) { %>
-					<strong>Developers:</strong>
-					<%- (game.developers) ? game.developers.join(', ') : '-' %>
-					<br />
-					<% } %>
-
-					<% if (game.publishers) { %>
-					<strong>Publishers:</strong>
-					<%- (game.publishers) ? game.publishers.join(', ') : '-' %>
-					<br />
-					<% } %>
-				</div>
-			</td>
-			<% _.each(data.profiles, function(profile) { %>
-			<td class="owner owner-<%- profile.id %>">
-				<% if (profile.games && profile.games[gameId]) { %>
-					<%- profile.games[gameId].hoursOnRecord %>h
-				<% } else { %>
-					Don't have
-				<% } %>
-			</td>
-			<% }); %>
-		</tr>
-		<%
-			});
-		%>
-	</tbody>
-</table>
+				</td>
+				<% }); %>
+			</tr>
+			<%
+				});
+			%>
+		</tbody>
+	</table>
+</div>
