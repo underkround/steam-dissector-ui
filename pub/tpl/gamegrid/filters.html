@@ -22,7 +22,7 @@
 
 		<div class="filters">
 			<% _.each(data.features, function(item) { %>
-			<button class="filter" value="<%- item %>">
+			<button class="filter" value="<%- item %>" data-set="features">
 				<%- item %>
 			</button>
 			<% }); %>
@@ -34,7 +34,7 @@
 
 		<div class="filters">
 			<% _.each(data.genres, function(item) { %>
-			<button class="filter" value="<%- item %>">
+			<button class="filter" value="<%- item %>" data-set="genres">
 				<%- item %>
 			</button>
 			<% }); %>
@@ -46,7 +46,7 @@
 
 		<div class="filters">
 			<% _.each(data.developers, function(item) { %>
-			<button class="filter" value="<%- item %>">
+			<button class="filter" value="<%- item %>" data-set="developers">
 				<%- item %>
 			</button>
 			<% }); %>
@@ -58,7 +58,7 @@
 
 		<div class="filters">
 			<% _.each(data.publishers, function(item) { %>
-			<button class="filter" value="<%- item %>">
+			<button class="filter" value="<%- item %>" data-set="publishers">
 				<%- item %>
 			</button>
 			<% }); %>
@@ -70,7 +70,7 @@
 
 		<div class="filters">
 			<% _.each(data.owners, function(item) { %>
-			<button class="filter" value="<%- item.id %>">
+			<button class="filter" value="<%- item.id %>" data-set="owners">
 				<%- item.name %>
 			</button>
 			<% }); %>
