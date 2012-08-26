@@ -1,7 +1,6 @@
 
 define([
-	'text!templates/gamegrid/games.html',
-	'jquery/lazyload'
+	'text!templates/gamegrid/games.html'
 ], function(templateString) {
 
 	var GamesView = Backbone.View.extend({
