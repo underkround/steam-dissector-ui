@@ -49,6 +49,7 @@ define([
 			profile.fetch({
 				success: function(){
 					self.profiles.add(profile);
+					self.trigger('addprofile:success', profile);
 				},
 				error: function(){
 					console.error('Could not load profile', profile.get('id'), profile);

@@ -33,13 +33,29 @@ define([
 			//this.model.games.on('all', function(){ console.log('games event', arguments); });
 
 			this.model
-				.on('addprofile:error', this.endProgress, this);
+				.on('addprofile:error', this.endProgress, this)
+				.on('addprofile:success', this.checkAttentionLevel, this);
 			this.model.games
 				.on('addgames:begin', this.addGamesBegin, this)
 				.on('addgames:done', this.addGamesEnd, this)
-				.on('addgames:tick', this.addGamesTick, this);
+				.on('addgames:tick', this.addGamesTick, this)
+				.on('add', this.checkAttentionLevel, this);
 
 			this.inputEl.focus();
+		},
+
+		checkAttentionLevel: function() {
+			if (
+				this.model.games.length > 0
+			) {
+				this.$el
+					.removeClass('attentioned')
+					.addClass('sidebar');
+			} else {
+				this.$el
+					.removeClass('sidebar')
+					.addClass('attentioned')
+			}
 		},
 
 		onAddProfileKeypress: function(event) {

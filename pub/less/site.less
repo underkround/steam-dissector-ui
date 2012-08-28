@@ -13,6 +13,7 @@
 
 @baseFontFamily: @sansFontFamily;
 @baseFontSize: 12px;
+@baseColor: #B0AEAC;
 
 @buttonColor: #778811;
 @activeButtonColor: #8BC53F;
@@ -31,15 +32,17 @@
 // -----
 
 body {
+	color: @baseColor;
 	background-color: #000;
 }
-
 strong {
 	font-weight: bold;
 }
-
 .progress {
 	background: #666;
+}
+.clear {
+	clear: both;
 }
 
 .page-wrapper {
@@ -49,10 +52,6 @@ strong {
 
 	font-family: @baseFontFamily;
 	font-size: @baseFontSize;
-
-	.clear {
-		clear: both;
-	}
 
 	.container {
 		margin: 0 auto;
@@ -108,15 +107,13 @@ strong {
 			color: @activeButtonColor;
 		}
 
-		#about {
-		}
-
 		.sidebar {
 			.wrapper {
 				color: @textColor;
 				margin: 0;
 				font-family: @monoFontFamily;
 			}
+
 			.wrapper.box {
 				border: @boxBorder;
 				background: @boxBackground;
@@ -163,124 +160,132 @@ strong {
 			}
 		}
 
-		.content {
-			color: @textColor;
-			margin: 20px 0 0 0;
+		#gamegrid-controls {
+			input[type="text"] {
+				width: 80%;
+			}
+			input[type="submit"] {
+				width: 16%;
+			}
 
-			#gamegrid-controls {
-				margin: 0 10px;
-
-				.add-profile-input {
-					width: 500px;
-				}
-
-				.progress-container {
-					.progress-caption {
-						font-style: italic;
-						margin-bottom: 4px;
-					}
+			.progress-container {
+				.progress-caption {
+					font-style: italic;
+					margin-bottom: 4px;
 				}
 			}
 
-			#gamegrid-games {
-				.wrapper {
-					margin: 10px 5px;
+			&.attentioned {
+				input,
+				button {
+					height: 30px;
+					font-size: 130%;
+					.border-radius(5px);
+					border: 2px solid #2f3325;
+					vertical-align: middle;
+					padding-left: 5px;
 				}
-				.wrapper.box {
-					border: @boxBorder;
-					background: @boxBackground;
-				}
+			}
+		}
 
-				table {
-					width: 100%;
+		#gamegrid-games {
+			.wrapper {
+				margin: 10px 5px;
+			}
+			.wrapper.box {
+				border: @boxBorder;
+				background: @boxBackground;
+			}
+
+			table {
+				width: 100%;
+				background: transparent;
+
+				thead {
 					background: transparent;
+					border-bottom: 5px solid #1c1c1c;
+				}
+				th {
+					text-align: left;
+					font-weight: bold;
+					height: 50px;
+					vertical-align: middle;
 
-					thead {
+					button {
+						margin: 0;
+						padding: 0;
 						background: transparent;
-						border-bottom: 5px solid #1c1c1c;
-					}
-					th {
-						text-align: left;
-						font-weight: bold;
-						height: 50px;
-						vertical-align: middle;
-
-						button {
-							margin: 0;
-							padding: 0;
-							background: transparent;
-						}
-					}
-					td {
-						text-align: left;
-						vertical-align: top;
-						background: #222;
-						border-top: 1px solid #1c1c1c;
 					}
 				}
+				td {
+					text-align: left;
+					vertical-align: top;
+					background: #222;
+					border-top: 1px solid #1c1c1c;
+				}
+			}
 
-				.ordering {
-					.order-by:not(.active) .icon {
-						display: none;
-					}
-					.order-by.active-asc .icon {
-						.icon-chevron-up;
-					}
-					.order-by.active-desc .icon {
-						.icon-chevron-down;
-					}
+			.ordering {
+				.order-by:not(.active) .icon {
+					display: none;
+				}
+				.order-by.active-asc .icon {
+					.icon-chevron-up;
+				}
+				.order-by.active-desc .icon {
+					.icon-chevron-down;
+				}
 
-					.game-properties {
-						padding-left: 10px;
-					}
+				.game-properties {
+					padding-left: 10px;
+				}
 
-					.owner {
-						position: relative;
+				.owner {
+					position: relative;
+					text-align: left;
+				}
+
+				.owner .profile {
+					padding-right: 5px;
+					display: none;
+					padding: 10px;
+					.border-radius(5px);
+					position: absolute;
+					width: 200px;
+					background: #3a3a3a;
+
+					.avatar {
+						float: left;
+						margin: 5px;
+					}
+					.details {
 						text-align: left;
 					}
+				}
+				.owner:hover .profile {
+					display: block;
+				}
+			}
 
-					.owner .profile {
-						padding-right: 5px;
-						display: none;
-						padding: 10px;
+			.games-container {
+				.game {
+					@logoWidth: 184px;
+					@logoMargin: 5px;
+
+					.logo {
+						width: @logoWidth;
+						margin: @logoMargin;
+						float: left;
 						.border-radius(5px);
-						position: absolute;
-						width: 200px;
-						background: #3a3a3a;
-
-						.avatar {
-							float: left;
-							margin: 5px;
-						}
-						.details {
-							text-align: left;
-						}
 					}
-					.owner:hover .profile {
-						display: block;
+
+					.details {
+						margin-left: @logoWidth + @logoMargin * 2;
 					}
 				}
 
-				.games-container {
-					.game {
-						@logoWidth: 184px;
-						@logoMargin: 5px;
-
-						.logo {
-							width: @logoWidth;
-							margin: @logoMargin;
-							float: left;
-							.border-radius(5px);
-						}
-
-						.details {
-							margin-left: @logoWidth + @logoMargin * 2;
-						}
-					}
-
-					.owner {
-						border-left: 1px solid #2a2a2a;
-					}
+				.owner {
+					border-left: 1px solid #2a2a2a;
 				}
 			}
 		}
@@ -316,9 +321,18 @@ strong {
 .sidebar {
 	width: @sidebarWidth;
 	float: right;
+	clear: right;
+	margin: 0 0 20px 0;
+	-webkit-transition: all 1s ease-out;
 }
 .content {
+	color: @textColor;
+	margin: 20px 0 20px 0;
 	width: @containerWidth - @sidebarWidth - 20px;
+}
+.attentioned {
+	margin: 50px auto 50px auto;
+	width: @containerWidth * 0.75;
 }
 
 @media (max-width: 1200px) {
@@ -326,6 +340,9 @@ strong {
 	@sidebarWidth: 200px;
 	.container {
 		width: @containerWidth;
+	}
+	.attentioned {
+		width: @containerWidth * 0.75;
 	}
 	.sidebar {
 		width: @sidebarWidth;
@@ -342,6 +359,9 @@ strong {
 	.container {
 		width: @containerWidth;
 	}
+	.attentioned {
+		width: @containerWidth * 0.75;
+	}
 	.sidebar {
 		width: @sidebarWidth;
 		float: right;
@@ -353,6 +373,7 @@ strong {
 
 @media (max-width: 767px) {
 	.container,
+	.full,
 	.sidebar,
 	.content {
 		width: 100%;
