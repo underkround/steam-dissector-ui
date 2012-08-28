@@ -273,13 +273,13 @@ footer {
 	}
 
 	.ordering {
-		.order-by:not(.active) .icon {
+		.order-by:not(.active) .icon-order-by {
 			display: none;
 		}
-		.order-by.active-asc .icon {
+		.order-by.active-asc .icon-order-by {
 			.icon-chevron-up;
 		}
-		.order-by.active-desc .icon {
+		.order-by.active-desc .icon-order-by {
 			.icon-chevron-down;
 		}
 
@@ -301,12 +301,19 @@ footer {
 			width: 200px;
 			background: #3a3a3a;
 
+			.profile-controls {
+				float: right;
+				display: inline-block;
+			}
 			.avatar {
 				float: left;
 				margin: 5px;
 			}
 			.details {
 				text-align: left;
+			}
+			.icon {
+				cursor: pointer;
 			}
 		}
 		.owner:hover .profile {

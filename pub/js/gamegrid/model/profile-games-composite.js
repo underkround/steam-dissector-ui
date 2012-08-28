@@ -35,10 +35,14 @@ define([
 			this.profiles.on('add', this.onProfileAdd, this);
 			this.profiles.on('remove', this.onProfileRemove, this);
 
-			// debug:
+			// @TODO: remove some day
 			window.debug = this;
-			//this.games.on('all', function(){ console.log('event games:all', arguments); });
-			//this.profiles.on('all', function(){ console.log('event profiles:all', arguments); });
+			//this.debugOn();
+		},
+
+		debugOn: function(){
+			this.games.on('all', function(){ console.log('event games:all', arguments); });
+			this.profiles.on('all', function(){ console.log('event profiles:all', arguments); });
 		},
 
 		addProfile: function(profileId) {
@@ -70,6 +74,14 @@ define([
 			console.log('TODO: onProfileRemove', profile, arguments);
 		},
 
+		onGameAdd: function(game) {
+			// @TODO
+		},
+
+		onGameRemove: function(game) {
+			// @TODO
+		},
+
 		addGames: function(games) {
 			if (_.isArray(games)) {
 				this.games.addGames(games);
@@ -80,22 +92,23 @@ define([
 			}
 		},
 
-		toJSON: function() {
+		toJSON: function(skipFilters) {
+			var games = (skipFilters === true)
+				? this.games.models
+				: this.games.getFiltered();
 			var data = {
-				games: this.games.toJSON(),
-				profiles: []
+				games: _.map(games, function(g) {
+					return g.toJSON();
+				}),
+				profiles: this.profiles.map(function(profile){
+					var profileData = profile.toJSON();
+					profileData.games = {};
+					_.each(profile.games.toJSON(), function(profileGame) {
+						profileData.games[profileGame.id] = profileGame;
+					});
+					return profileData;
+				})
 			};
-			this.profiles.each(function(profile) {
-				var profileId = profile.id;
-				var profileData = profile.toJSON();
-				profileData.games = {};
-				//data.profiles[profileId].games = {};
-				_.each(profile.games.toJSON(), function(profileGame) {
-					profileData.games[profileGame.id] = profileGame;
-					//data.profiles[profileId].games[profileGame.id] = profileGame;
-				});
-				data.profiles.push(profileData);
-			});
 			return data;
 		}
 	});

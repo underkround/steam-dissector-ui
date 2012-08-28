@@ -5,19 +5,19 @@
 			<tr class="ordering">
 				<th class="game-properties">
 					<button class="order-by" value="name">
-						<span class="icon icon-white" />Name
+						<span class="icon icon-order-by" />Name
 					</button>
 					&#47;
 					<button class="order-by" value="releaseDate">
-						<span class="icon icon-white" />Released
+						<span class="icon icon-order-by" />Released
 					</button>
 					&#47;
 					<button class="order-by" value="owner-hours">
-						<span class="icon icon-white" />Hours
+						<span class="icon icon-order-by" />Hours
 					</button>
 					&#47;
 					<button class="order-by" value="metascore">
-						<span class="icon icon-white" />Rating
+						<span class="icon icon-order-by" />Rating
 					</button>
 
 				</th>
@@ -30,22 +30,26 @@
 								? _.escape(name.substr(0, nameMaxChars - 1)) + '&#8230;'
 								: _.escape(name);
 				%>
-				<th class="order-by owner" value="<%- id %>">
+				<th class="owner" value="<%- id %>">
 					<button class="order-by" value="owner-<%- id %>">
-						<span class="icon icon-white" /><%= safeTruncateName %>
-						<div class="profile">
-							<div class="avatar">
-								<img src="<%= profile.avatarMedium %>" alt="<%= name %>" />
-							</div>
-							<div class="details">
-								<strong><%- name %></strong>
-								<br />
-								<strong>Status:</strong> <%- profile.onlineState %>
-								<br />
-								<strong>Games:</strong> <%- profile.games.length %>
-							</div>
-						</div>
+						<span class="icon icon-order-by" /><%= safeTruncateName %>
 					</button>
+					<div class="profile">
+						<div class="avatar">
+							<img src="<%= profile.avatarMedium %>" alt="<%= name %>" />
+						</div>
+						<div class="details">
+							<div class="profile-controls">
+								<span class="icon ctrl-refresh-profile icon-refresh" data-target="<%= id %>" />
+								<span class="icon ctrl-remove-profile icon-remove" data-target="<%= id %>" />
+							</div>
+							<strong><%- name %></strong>
+							<br />
+							<strong>Status:</strong> <%- profile.onlineState %>
+							<br />
+							<strong>Games:</strong> <%- profile.games.length %>
+						</div>
+					</div>
 				</th>
 				<% }); %>
 			</tr>

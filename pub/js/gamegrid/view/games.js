@@ -15,7 +15,9 @@ define([
 		template: _.template(templateString, null, {variable: 'data'}),
 
 		events: {
-			'click .ordering .order-by': 'onOrderByClick'
+			'click .ordering .order-by':   'onOrderByClick',
+			'click .ctrl-refresh-profile': 'onRefreshProfileClick',
+			'click .ctrl-remove-profile':  'onRemoveProfileClick'
 		},
 
 		initialize: function() {
@@ -39,6 +41,24 @@ define([
 				if (this.model.games.length < 1) {
 					this.render();
 				}
+			}
+		},
+
+		onRefreshProfileClick: function(event) {
+			var el = $(event.currentTarget);
+			if (el) {
+				var model = this.model.profiles.get({id: el.attr('data-target')});
+				if (model) {
+					model.fetch();
+				}
+			}
+		},
+
+		onRemoveProfileClick: function(event) {
+			var el = $(event.currentTarget);
+			if (el) {
+				this.model.profiles.remove({id: el.attr('data-target')});
+				this.render();
 			}
 		},
 
@@ -68,7 +88,7 @@ define([
 			this.$el.html(this.template(data));
 
 			var orderBy = this.$('.order-by[value="' + games.orderKey + '"]');
-			if (games.reverse) {
+			if (games.orderReverse) {
 				orderBy.addClass('active active-desc');
 			} else {
 				orderBy.addClass('active active-asc');

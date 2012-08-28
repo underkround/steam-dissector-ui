@@ -24,20 +24,27 @@ define([
 
 	var GameCollection = Backbone.Collection.extend({
 		url: config.gamesUrl,
-		reverse: false,
+		orderReverse: false,
 		orderKey: 'name',
+		viewFilter: null,
 
 		initialize: function() {
 		},
 
 		orderByToggle: function(orderKey) {
 			if (orderKey === this.orderKey) {
-				this.reverse = ! this.reverse;
+				this.orderReverse = ! this.orderReverse;
 			} else {
 				this.orderKey = orderKey;
-				this.reverse = false;
+				this.orderReverse = false;
 			}
 			this.sort();
+		},
+
+		getFiltered: function() {
+			return (this.viewFilter)
+				? this.filter(this.viewFilter)
+				: this.models;
 		},
 
 		comparator: function(game) {
@@ -46,7 +53,7 @@ define([
 
 		sortBy: function() {
 			var comparator = _.bind(this.comparator, this);
-			if (this.reverse) {
+			if (this.orderReverse) {
 				return _.sortBy(this.models, comparator).reverse();
 			}
 			return _.sortBy(this.models, comparator);

@@ -1738,13 +1738,13 @@ footer a:hover {
   background: #222;
   border-top: 1px solid #1c1c1c;
 }
-#gamegrid-games .ordering .order-by:not(.active) .icon {
+#gamegrid-games .ordering .order-by:not(.active) .icon-order-by {
   display: none;
 }
-#gamegrid-games .ordering .order-by.active-asc .icon {
+#gamegrid-games .ordering .order-by.active-asc .icon-order-by {
   background-position: -288px -120px;
 }
-#gamegrid-games .ordering .order-by.active-desc .icon {
+#gamegrid-games .ordering .order-by.active-desc .icon-order-by {
   background-position: -313px -119px;
 }
 #gamegrid-games .ordering .game-properties {
@@ -1765,12 +1765,19 @@ footer a:hover {
   width: 200px;
   background: #3a3a3a;
 }
+#gamegrid-games .ordering .owner .profile .profile-controls {
+  float: right;
+  display: inline-block;
+}
 #gamegrid-games .ordering .owner .profile .avatar {
   float: left;
   margin: 5px;
 }
 #gamegrid-games .ordering .owner .profile .details {
   text-align: left;
+}
+#gamegrid-games .ordering .owner .profile .icon {
+  cursor: pointer;
 }
 #gamegrid-games .ordering .owner:hover .profile {
   display: block;
