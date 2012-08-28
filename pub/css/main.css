@@ -1538,6 +1538,7 @@ input[type="submit"].btn.btn-mini {
 body {
   color: #b0aeac;
   background-color: #000;
+  min-height: 100%;
 }
 strong {
   font-weight: bold;
@@ -1547,6 +1548,25 @@ strong {
 }
 .clear {
   clear: both;
+}
+input[type=text] {
+  background: #111;
+  border: none;
+  color: #778811;
+  padding: 2px 0px 2px 5px;
+}
+button {
+  font-family: Consolas, "Courier new", monospace;
+  background: #1A1A1A;
+  color: #778811;
+  border: none;
+  border-radius: none;
+  cursor: pointer;
+  padding: 1px 4px 1px 0px;
+}
+button.active,
+button:hover {
+  color: #8bc53f;
 }
 .page-wrapper {
   background-image: linear-gradient(top, #3b3938 70px, #000000 270px);
@@ -1558,6 +1578,9 @@ strong {
 .container {
   margin: 0 auto;
 }
+/**
+ * Page parts
+ */
 header {
   height: 60px;
   background: transparent url('/img/header-bg.png') 0px 0px repeat-x;
@@ -1565,13 +1588,13 @@ header {
 header h1 {
   float: left;
   margin: 13px 20px 0 0;
-  color: #331;
   font-size: 32px;
-  text-shadow: #fff 0px 0px 13px;
-  -webkit-transition: color 1s;
-  -moz-transition: color 1s;
-  -o-transition: color 1s;
-  transition: color 1s;
+  color: rgba(202, 202, 202, 0.74);
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
 }
 header .navigation {
   padding: 30px 20px 0 0;
@@ -1587,178 +1610,6 @@ header .navigation li a {
   text-decoration: none;
   text-shadow: 0 1px 4px #000;
 }
-.body input[type=text] {
-  background: #111;
-  border: none;
-  color: #778811;
-  padding: 2px 0px 2px 5px;
-}
-.body button {
-  font-family: Consolas, "Courier new", monospace;
-  background: #1A1A1A;
-  color: #778811;
-  border: none;
-  border-radius: none;
-  cursor: pointer;
-  padding: 1px 4px 1px 0px;
-}
-.body button.active,
-.body button:hover {
-  color: #8bc53f;
-}
-.body .sidebar .wrapper {
-  color: #b0aeac;
-  margin: 0;
-  font-family: Consolas, "Courier new", monospace;
-}
-.body .sidebar .wrapper.box {
-  border: 1px solid #4d4b49;
-  background: #262626;
-}
-.body .sidebar h2 {
-  background: transparent url('/img/header-bg.png') 0px -24px repeat-x;
-  margin: 0;
-  padding: 13px 13px 8px 13px;
-  text-shadow: 0 1px 7px #000;
-  font-weight: bold;
-}
-.body .sidebar .filter-set {
-  margin: 10px 0 0 0;
-}
-.body .sidebar .filter-set .title {
-  display: block;
-  margin: 15px 0 5px 0;
-  padding: 4px;
-  border-bottom: 1px solid #373E26;
-  width: 100%;
-  font-style: italic;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.body .sidebar .filter-set .filters {
-  margin: 5px;
-}
-.body .sidebar .filter-set .filter {
-  font-family: Consolas, "Courier new", monospace;
-  background: transparent;
-  color: #778811;
-  border: none;
-  border-radius: none;
-  cursor: pointer;
-}
-.body .sidebar .filter-set .filter:hover,
-.body .sidebar .filter-set .filter.active {
-  background: #1A1A1A;
-  color: #8bc53f;
-}
-.body #gamegrid-controls {
-  height: 40px;
-}
-.body #gamegrid-controls input[type="text"] {
-  width: 80%;
-}
-.body #gamegrid-controls input[type="submit"] {
-  width: 16%;
-}
-.body #gamegrid-controls .progress-container .progress-caption {
-  font-style: italic;
-  margin-bottom: 4px;
-}
-.body #gamegrid-controls.attentioned input,
-.body #gamegrid-controls.attentioned button {
-  height: 30px;
-  font-size: 130%;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  border: 2px solid #2f3325;
-  vertical-align: middle;
-  padding-left: 5px;
-}
-.body #gamegrid-games .wrapper {
-  margin: 10px 5px;
-}
-.body #gamegrid-games .wrapper.box {
-  border: 1px solid #4d4b49;
-  background: #262626;
-}
-.body #gamegrid-games table {
-  width: 100%;
-  background: transparent;
-}
-.body #gamegrid-games table thead {
-  background: transparent;
-  border-bottom: 5px solid #1c1c1c;
-}
-.body #gamegrid-games table th {
-  text-align: left;
-  font-weight: bold;
-  height: 50px;
-  vertical-align: middle;
-}
-.body #gamegrid-games table th button {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-}
-.body #gamegrid-games table td {
-  text-align: left;
-  vertical-align: top;
-  background: #222;
-  border-top: 1px solid #1c1c1c;
-}
-.body #gamegrid-games .ordering .order-by:not(.active) .icon {
-  display: none;
-}
-.body #gamegrid-games .ordering .order-by.active-asc .icon {
-  background-position: -288px -120px;
-}
-.body #gamegrid-games .ordering .order-by.active-desc .icon {
-  background-position: -313px -119px;
-}
-.body #gamegrid-games .ordering .game-properties {
-  padding-left: 10px;
-}
-.body #gamegrid-games .ordering .owner {
-  position: relative;
-  text-align: left;
-}
-.body #gamegrid-games .ordering .owner .profile {
-  padding-right: 5px;
-  display: none;
-  padding: 10px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  position: absolute;
-  width: 200px;
-  background: #3a3a3a;
-}
-.body #gamegrid-games .ordering .owner .profile .avatar {
-  float: left;
-  margin: 5px;
-}
-.body #gamegrid-games .ordering .owner .profile .details {
-  text-align: left;
-}
-.body #gamegrid-games .ordering .owner:hover .profile {
-  display: block;
-}
-.body #gamegrid-games .games-container .game .logo {
-  width: 184px;
-  margin: 5px;
-  float: left;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-.body #gamegrid-games .games-container .game .details {
-  margin-left: 194px;
-}
-.body #gamegrid-games .games-container .owner {
-  border-left: 1px solid #2a2a2a;
-}
 footer {
   font-size: 12px;
   font-family: Consolas, "Courier new", monospace;
@@ -1772,6 +1623,179 @@ footer a {
 }
 footer a:hover {
   text-decoration: underline;
+}
+.sidebar .wrapper {
+  color: #b0aeac;
+  margin: 0;
+  font-family: Consolas, "Courier new", monospace;
+}
+.sidebar .wrapper.box {
+  border: 1px solid #4d4b49;
+  background: #262626;
+}
+.sidebar h2 {
+  background: transparent url('/img/header-bg.png') 0px -24px repeat-x;
+  margin: 0;
+  padding: 13px 13px 8px 13px;
+  text-shadow: 0 1px 7px #000;
+  font-weight: bold;
+}
+/**
+ * Views
+ */
+#gamegrid-filters .filter-set {
+  margin: 10px 0 0 0;
+}
+#gamegrid-filters .filter-set .title {
+  display: block;
+  margin: 15px 0 5px 0;
+  padding: 4px;
+  border-bottom: 1px solid #373E26;
+  width: 100%;
+  font-style: italic;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#gamegrid-filters .filter-set .filters {
+  margin: 5px;
+}
+#gamegrid-filters .filter-set .filter {
+  font-family: Consolas, "Courier new", monospace;
+  background: #1f1f1f;
+  color: #778811;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 3px 3px;
+  margin: 0 0 3px 0;
+}
+#gamegrid-filters .filter-set .filter.active {
+  background: #444;
+  color: #8bc53f;
+}
+#gamegrid-filters .filter-set .filter:hover {
+  background: #554;
+  color: #8bc53f;
+}
+#gamegrid-filters .filter-set .filter.disabled {
+  background: transparent;
+  color: #445511;
+}
+#gamegrid-controls {
+  height: 40px;
+}
+#gamegrid-controls input[type="text"] {
+  width: 80%;
+}
+#gamegrid-controls input[type="submit"] {
+  width: 16%;
+}
+#gamegrid-controls .progress-container .progress-caption {
+  font-style: italic;
+  margin-bottom: 4px;
+}
+#gamegrid-controls.attentioned input,
+#gamegrid-controls.attentioned button {
+  height: 30px;
+  font-size: 130%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 2px solid #2f3325;
+  vertical-align: middle;
+  padding-left: 5px;
+}
+#gamegrid-games .wrapper {
+  margin: 10px 5px;
+}
+#gamegrid-games .wrapper.box {
+  border: 1px solid #4d4b49;
+  background: #262626;
+}
+#gamegrid-games table {
+  width: 100%;
+  background: transparent;
+}
+#gamegrid-games table thead {
+  background: transparent;
+  border-bottom: 5px solid #1c1c1c;
+}
+#gamegrid-games table th {
+  text-align: left;
+  font-weight: bold;
+  height: 50px;
+  vertical-align: middle;
+}
+#gamegrid-games table th button {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+#gamegrid-games table td {
+  text-align: left;
+  vertical-align: top;
+  background: #222;
+  border-top: 1px solid #1c1c1c;
+}
+#gamegrid-games .ordering .order-by:not(.active) .icon {
+  display: none;
+}
+#gamegrid-games .ordering .order-by.active-asc .icon {
+  background-position: -288px -120px;
+}
+#gamegrid-games .ordering .order-by.active-desc .icon {
+  background-position: -313px -119px;
+}
+#gamegrid-games .ordering .game-properties {
+  padding-left: 10px;
+}
+#gamegrid-games .ordering .owner {
+  position: relative;
+  text-align: left;
+}
+#gamegrid-games .ordering .owner .profile {
+  padding-right: 5px;
+  display: none;
+  padding: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  position: absolute;
+  width: 200px;
+  background: #3a3a3a;
+}
+#gamegrid-games .ordering .owner .profile .avatar {
+  float: left;
+  margin: 5px;
+}
+#gamegrid-games .ordering .owner .profile .details {
+  text-align: left;
+}
+#gamegrid-games .ordering .owner:hover .profile {
+  display: block;
+}
+#gamegrid-games .games-container .game .logo {
+  width: 184px;
+  margin: 5px;
+  float: left;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+#gamegrid-games .games-container .game .details {
+  margin-left: 194px;
+}
+@media (max-width: 767px) {
+  #gamegrid-games .games-container .game .logo {
+    float: none;
+  }
+  #gamegrid-games .games-container .game .details {
+    margin-left: 0px;
+  }
+}
+#gamegrid-games .games-container .owner {
+  border-left: 1px solid #2a2a2a;
 }
 /**
  * Structure
