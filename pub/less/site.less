@@ -52,259 +52,263 @@ strong {
 
 	font-family: @baseFontFamily;
 	font-size: @baseFontSize;
+}
 
-	.container {
-		margin: 0 auto;
+.container {
+	margin: 0 auto;
+}
+
+header {
+	height: 60px;
+	background: transparent url('@{imgPath}/header-bg.png') 0px 0px repeat-x;
+
+	h1 {
+		float: left;
+		margin: 13px 20px 0 0;
+		color: #331;
+		font-size: 32px;
+		text-shadow: #fff 0px 0px 13px;
+		.transition(color 1s);
 	}
+	.navigation {
+		padding: 30px 20px 0 0;
+		float: right;
 
-	header {
-		height: 60px;
-		background: transparent url('@{imgPath}/header-bg.png') 0px 0px repeat-x;
-
-		h1 {
+		li {
+			display: inline-block;
 			float: left;
-			margin: 13px 20px 0 0;
-			color: #331;
-			font-size: 32px;
-			text-shadow: #fff 0px 0px 13px;
-		}
-		.navigation {
-			padding: 30px 20px 0 0;
-			float: right;
+			margin-left: 20px;
 
-			li {
-				display: inline-block;
-				float: left;
-				margin-left: 20px;
-
-				a {
-					color: #aaa;
-					text-decoration: none;
-					text-shadow: 0 1px 4px #000;
-				}
+			a {
+				color: #aaa;
+				text-decoration: none;
+				text-shadow: 0 1px 4px #000;
 			}
 		}
 	}
+}
 
-	.body {
-		input[type=text] {
-			background: #111;
-			border: none;
-			color: @inputColor;
-			padding: 2px 0px 2px 5px;
-		}
-		button {
-			font-family: @monoFontFamily;
-			background: #1A1A1A;
-			color: @buttonColor;
-			border: none;
-			border-radius: none;
-			cursor: pointer;
-			padding: 1px 4px 1px 0px;
-		}
-		button.active,
-		button:hover {
-			color: @activeButtonColor;
-		}
-
-		.sidebar {
-			.wrapper {
-				color: @textColor;
-				margin: 0;
-				font-family: @monoFontFamily;
-			}
-
-			.wrapper.box {
-				border: @boxBorder;
-				background: @boxBackground;
-			}
-
-			h2 {
-				background: transparent url('@{imgPath}/header-bg.png') 0px -24px repeat-x;
-				margin: 0;
-				padding: 13px 13px 8px 13px;
-				text-shadow: 0 1px 7px #000;
-				font-weight: bold;
-			}
-
-			.filter-set {
-				margin: 10px 0 0 0;
-
-				.title {
-					display: block;
-					margin: 15px 0 5px 0;
-					padding: 4px;
-					border-bottom: 1px solid #373E26;
-					width: 100%;
-					font-style: italic;
-					-moz-box-sizing: border-box;
-					-webkit-box-sizing: border-box;
-					box-sizing: border-box;
-	    		}
-	    		.filters {
-	    			margin: 5px;
-	    		}
-				.filter {
-					font-family: @monoFontFamily;
-					background: transparent;
-					color: @buttonColor;
-					border: none;
-					border-radius: none;
-					cursor: pointer;
-				}
-				.filter:hover,
-				.filter.active {
-					background: #1A1A1A;
-					color: @activeButtonColor;
-				}
-			}
-		}
-
-		#gamegrid-controls {
-			input[type="text"] {
-				width: 80%;
-			}
-			input[type="submit"] {
-				width: 16%;
-			}
-
-			.progress-container {
-				.progress-caption {
-					font-style: italic;
-					margin-bottom: 4px;
-				}
-			}
-
-			&.attentioned {
-				input,
-				button {
-					height: 30px;
-					font-size: 130%;
-					.border-radius(5px);
-					border: 2px solid #2f3325;
-					vertical-align: middle;
-					padding-left: 5px;
-				}
-			}
-		}
-
-		#gamegrid-games {
-			.wrapper {
-				margin: 10px 5px;
-			}
-			.wrapper.box {
-				border: @boxBorder;
-				background: @boxBackground;
-			}
-
-			table {
-				width: 100%;
-				background: transparent;
-
-				thead {
-					background: transparent;
-					border-bottom: 5px solid #1c1c1c;
-				}
-				th {
-					text-align: left;
-					font-weight: bold;
-					height: 50px;
-					vertical-align: middle;
-
-					button {
-						margin: 0;
-						padding: 0;
-						background: transparent;
-					}
-				}
-				td {
-					text-align: left;
-					vertical-align: top;
-					background: #222;
-					border-top: 1px solid #1c1c1c;
-				}
-			}
-
-			.ordering {
-				.order-by:not(.active) .icon {
-					display: none;
-				}
-				.order-by.active-asc .icon {
-					.icon-chevron-up;
-				}
-				.order-by.active-desc .icon {
-					.icon-chevron-down;
-				}
-
-				.game-properties {
-					padding-left: 10px;
-				}
-
-				.owner {
-					position: relative;
-					text-align: left;
-				}
-
-				.owner .profile {
-					padding-right: 5px;
-					display: none;
-					padding: 10px;
-					.border-radius(5px);
-					position: absolute;
-					width: 200px;
-					background: #3a3a3a;
-
-					.avatar {
-						float: left;
-						margin: 5px;
-					}
-					.details {
-						text-align: left;
-					}
-				}
-				.owner:hover .profile {
-					display: block;
-				}
-			}
-
-			.games-container {
-				.game {
-					@logoWidth: 184px;
-					@logoMargin: 5px;
-
-					.logo {
-						width: @logoWidth;
-						margin: @logoMargin;
-						float: left;
-						.border-radius(5px);
-					}
-
-					.details {
-						margin-left: @logoWidth + @logoMargin * 2;
-					}
-				}
-
-				.owner {
-					border-left: 1px solid #2a2a2a;
-				}
-			}
-		}
+.body {
+	input[type=text] {
+		background: #111;
+		border: none;
+		color: @inputColor;
+		padding: 2px 0px 2px 5px;
 	}
-
-	footer {
-		font-size: 12px;
+	button {
 		font-family: @monoFontFamily;
-		margin: 0;
-		padding: 20px 0 20px 0;
-		clear: both;
+		background: #1A1A1A;
+		color: @buttonColor;
+		border: none;
+		border-radius: none;
+		cursor: pointer;
+		padding: 1px 4px 1px 0px;
+	}
+	button.active,
+	button:hover {
+		color: @activeButtonColor;
+	}
 
-		a {
-			color: #444;
-			text-decoration: none;
+	.sidebar {
+		.wrapper {
+			color: @textColor;
+			margin: 0;
+			font-family: @monoFontFamily;
 		}
-		a:hover {
-			text-decoration: underline;
+
+		.wrapper.box {
+			border: @boxBorder;
+			background: @boxBackground;
 		}
+
+		h2 {
+			background: transparent url('@{imgPath}/header-bg.png') 0px -24px repeat-x;
+			margin: 0;
+			padding: 13px 13px 8px 13px;
+			text-shadow: 0 1px 7px #000;
+			font-weight: bold;
+		}
+
+		.filter-set {
+			margin: 10px 0 0 0;
+
+			.title {
+				display: block;
+				margin: 15px 0 5px 0;
+				padding: 4px;
+				border-bottom: 1px solid #373E26;
+				width: 100%;
+				font-style: italic;
+				-moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+    		}
+    		.filters {
+    			margin: 5px;
+    		}
+			.filter {
+				font-family: @monoFontFamily;
+				background: transparent;
+				color: @buttonColor;
+				border: none;
+				border-radius: none;
+				cursor: pointer;
+			}
+			.filter:hover,
+			.filter.active {
+				background: #1A1A1A;
+				color: @activeButtonColor;
+			}
+		}
+	}
+
+	#gamegrid-controls {
+		height: 40px;
+
+		input[type="text"] {
+			width: 80%;
+		}
+		input[type="submit"] {
+			width: 16%;
+		}
+
+		.progress-container {
+			.progress-caption {
+				font-style: italic;
+				margin-bottom: 4px;
+			}
+		}
+
+		&.attentioned {
+			input,
+			button {
+				height: 30px;
+				font-size: 130%;
+				.border-radius(5px);
+				border: 2px solid #2f3325;
+				vertical-align: middle;
+				padding-left: 5px;
+			}
+		}
+	}
+
+	#gamegrid-games {
+
+		.wrapper {
+			margin: 10px 5px;
+		}
+		.wrapper.box {
+			border: @boxBorder;
+			background: @boxBackground;
+		}
+
+		table {
+			width: 100%;
+			background: transparent;
+
+			thead {
+				background: transparent;
+				border-bottom: 5px solid #1c1c1c;
+			}
+			th {
+				text-align: left;
+				font-weight: bold;
+				height: 50px;
+				vertical-align: middle;
+
+				button {
+					margin: 0;
+					padding: 0;
+					background: transparent;
+				}
+			}
+			td {
+				text-align: left;
+				vertical-align: top;
+				background: #222;
+				border-top: 1px solid #1c1c1c;
+			}
+		}
+
+		.ordering {
+			.order-by:not(.active) .icon {
+				display: none;
+			}
+			.order-by.active-asc .icon {
+				.icon-chevron-up;
+			}
+			.order-by.active-desc .icon {
+				.icon-chevron-down;
+			}
+
+			.game-properties {
+				padding-left: 10px;
+			}
+
+			.owner {
+				position: relative;
+				text-align: left;
+			}
+
+			.owner .profile {
+				padding-right: 5px;
+				display: none;
+				padding: 10px;
+				.border-radius(5px);
+				position: absolute;
+				width: 200px;
+				background: #3a3a3a;
+
+				.avatar {
+					float: left;
+					margin: 5px;
+				}
+				.details {
+					text-align: left;
+				}
+			}
+			.owner:hover .profile {
+				display: block;
+			}
+		}
+
+		.games-container {
+			.game {
+				@logoWidth: 184px;
+				@logoMargin: 5px;
+
+				.logo {
+					width: @logoWidth;
+					margin: @logoMargin;
+					float: left;
+					.border-radius(5px);
+				}
+
+				.details {
+					margin-left: @logoWidth + @logoMargin * 2;
+				}
+			}
+
+			.owner {
+				border-left: 1px solid #2a2a2a;
+			}
+		}
+	}
+}
+
+footer {
+	font-size: 12px;
+	font-family: @monoFontFamily;
+	margin: 0;
+	padding: 20px 0 20px 0;
+	clear: both;
+
+	a {
+		color: #444;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
 	}
 }
 
@@ -317,22 +321,25 @@ strong {
 @sidebarWidth: 300px;
 .container {
 	width: @containerWidth;
+	.transition(all 0.5s ease-out);
 }
 .sidebar {
 	width: @sidebarWidth;
 	float: right;
 	clear: right;
 	margin: 0 0 20px 0;
-	-webkit-transition: all 1s ease-out;
+	.transition(all 0.5s ease-in-out);
 }
 .content {
 	color: @textColor;
 	margin: 20px 0 20px 0;
 	width: @containerWidth - @sidebarWidth - 20px;
+	.transition(all 0.5s ease-out);
 }
 .attentioned {
 	margin: 50px auto 50px auto;
 	width: @containerWidth * 0.75;
+	.transition(all 0.5s ease-out);
 }
 
 @media (max-width: 1200px) {
@@ -372,12 +379,25 @@ strong {
 }
 
 @media (max-width: 767px) {
+	header {
+		margin-bottom: 20px;
+		h1 {
+			font-size: 26px;
+			color: #ccc;
+			margin: 15px 0 0 10px;
+			text-shadow: #331 0px 0px 2px;
+		}
+	}
 	.container,
-	.full,
 	.sidebar,
 	.content {
 		width: 100%;
 		float: none;
+	}
+	.attentioned {
+		width: 98%;
+		float: none;
+		margin: 40px 1% 40px 1%;
 	}
 	.page-wrapper .container .sidebar,
 	.page-wrapper .container .content {

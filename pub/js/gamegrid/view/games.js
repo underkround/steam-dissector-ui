@@ -25,6 +25,8 @@ define([
 				.on('addgames:done', this.render, this)
 				.on('reset', this.render, this);
 
+			this.$el.hide();
+
 			// debug
 			//this.model.on('all', function(){console.log(arguments);});
 			//this.model.games.on('all', function(){ console.log('games:all', arguments); });
@@ -50,25 +52,26 @@ define([
 
 		render: function(){
 			var games = this.model.games;
-			if ( ! games.isEmpty()) {
-				var data = this.model.toJSON();
-				data.orderKeys = {
-					name: 'Name',
-					releaseDate: 'Released',
-					ownerHours: 'Hours',
-					metascore: 'Rating'
-				};
-
-				this.$el.html(this.template(data));
-
-				var orderBy = this.$('.order-by[value="' + games.orderKey + '"]');
-				if (games.reverse) {
-					orderBy.addClass('active active-desc');
-				} else {
-					orderBy.addClass('active active-asc');
-				}
+			if (games.isEmpty()) {
+				this.$el.fadeOut();
 			} else {
-				this.$el.html('');
+				this.$el.fadeIn();
+			}
+			var data = this.model.toJSON();
+			data.orderKeys = {
+				name: 'Name',
+				releaseDate: 'Released',
+				ownerHours: 'Hours',
+				metascore: 'Rating'
+			};
+
+			this.$el.html(this.template(data));
+
+			var orderBy = this.$('.order-by[value="' + games.orderKey + '"]');
+			if (games.reverse) {
+				orderBy.addClass('active active-desc');
+			} else {
+				orderBy.addClass('active active-asc');
 			}
 		}
 	});

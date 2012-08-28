@@ -20,15 +20,8 @@ define([
 
 		initialize: function() {
 			this.model.games.on('addgames:done', this.render, this);
-			/*
-			this.filterContainers = {
-				features:   this.$('#filter-features .filters'),
-				genres:     this.$('#filter-genres .filters'),
-				developers: this.$('#filter-developers .filters'),
-				publishers: this.$('#filter-publishers .filters'),
-				owners:     this.$('#filter-owners .filters')
-			};
-			*/
+
+			this.$el.hide();
 		},
 
 		onFilterClick: function(event) {
@@ -36,7 +29,7 @@ define([
 			this.updateFilters();
 		},
 
-		updateFilters: function(){
+		updateFilters: function() {
 			var filters = {};
 			this.$('.filter.active').each(function(){
 				var $this = $(this),
@@ -52,7 +45,7 @@ define([
 			console.log('using filters: ', filters);
 		},
 
-		render: function(){
+		render: function() {
 			var data = this.model.games.getProperties();
 			var isEmpty = true;
 			for (k in data) {
@@ -62,11 +55,12 @@ define([
 				}
 			}
 			if (isEmpty) {
-				this.$el.html('');
+				this.$el.fadeOut();
 			} else {
-				data.owners = this.model.profiles.toJSON();
-				this.$el.html(this.template(data));
+				this.$el.fadeIn();
 			}
+			data.owners = this.model.profiles.toJSON();
+			this.$el.html(this.template(data));
 		}
 	});
 

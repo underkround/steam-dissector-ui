@@ -1555,41 +1555,45 @@ strong {
   font-family: Arial, sans-serif;
   font-size: 12px;
 }
-.page-wrapper .container {
+.container {
   margin: 0 auto;
 }
-.page-wrapper header {
+header {
   height: 60px;
   background: transparent url('/img/header-bg.png') 0px 0px repeat-x;
 }
-.page-wrapper header h1 {
+header h1 {
   float: left;
   margin: 13px 20px 0 0;
   color: #331;
   font-size: 32px;
   text-shadow: #fff 0px 0px 13px;
+  -webkit-transition: color 1s;
+  -moz-transition: color 1s;
+  -o-transition: color 1s;
+  transition: color 1s;
 }
-.page-wrapper header .navigation {
+header .navigation {
   padding: 30px 20px 0 0;
   float: right;
 }
-.page-wrapper header .navigation li {
+header .navigation li {
   display: inline-block;
   float: left;
   margin-left: 20px;
 }
-.page-wrapper header .navigation li a {
+header .navigation li a {
   color: #aaa;
   text-decoration: none;
   text-shadow: 0 1px 4px #000;
 }
-.page-wrapper .body input[type=text] {
+.body input[type=text] {
   background: #111;
   border: none;
   color: #778811;
   padding: 2px 0px 2px 5px;
 }
-.page-wrapper .body button {
+.body button {
   font-family: Consolas, "Courier new", monospace;
   background: #1A1A1A;
   color: #778811;
@@ -1598,30 +1602,30 @@ strong {
   cursor: pointer;
   padding: 1px 4px 1px 0px;
 }
-.page-wrapper .body button.active,
-.page-wrapper .body button:hover {
+.body button.active,
+.body button:hover {
   color: #8bc53f;
 }
-.page-wrapper .body .sidebar .wrapper {
+.body .sidebar .wrapper {
   color: #b0aeac;
   margin: 0;
   font-family: Consolas, "Courier new", monospace;
 }
-.page-wrapper .body .sidebar .wrapper.box {
+.body .sidebar .wrapper.box {
   border: 1px solid #4d4b49;
   background: #262626;
 }
-.page-wrapper .body .sidebar h2 {
+.body .sidebar h2 {
   background: transparent url('/img/header-bg.png') 0px -24px repeat-x;
   margin: 0;
   padding: 13px 13px 8px 13px;
   text-shadow: 0 1px 7px #000;
   font-weight: bold;
 }
-.page-wrapper .body .sidebar .filter-set {
+.body .sidebar .filter-set {
   margin: 10px 0 0 0;
 }
-.page-wrapper .body .sidebar .filter-set .title {
+.body .sidebar .filter-set .title {
   display: block;
   margin: 15px 0 5px 0;
   padding: 4px;
@@ -1632,10 +1636,10 @@ strong {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.page-wrapper .body .sidebar .filter-set .filters {
+.body .sidebar .filter-set .filters {
   margin: 5px;
 }
-.page-wrapper .body .sidebar .filter-set .filter {
+.body .sidebar .filter-set .filter {
   font-family: Consolas, "Courier new", monospace;
   background: transparent;
   color: #778811;
@@ -1643,23 +1647,26 @@ strong {
   border-radius: none;
   cursor: pointer;
 }
-.page-wrapper .body .sidebar .filter-set .filter:hover,
-.page-wrapper .body .sidebar .filter-set .filter.active {
+.body .sidebar .filter-set .filter:hover,
+.body .sidebar .filter-set .filter.active {
   background: #1A1A1A;
   color: #8bc53f;
 }
-.page-wrapper .body #gamegrid-controls input[type="text"] {
+.body #gamegrid-controls {
+  height: 40px;
+}
+.body #gamegrid-controls input[type="text"] {
   width: 80%;
 }
-.page-wrapper .body #gamegrid-controls input[type="submit"] {
+.body #gamegrid-controls input[type="submit"] {
   width: 16%;
 }
-.page-wrapper .body #gamegrid-controls .progress-container .progress-caption {
+.body #gamegrid-controls .progress-container .progress-caption {
   font-style: italic;
   margin-bottom: 4px;
 }
-.page-wrapper .body #gamegrid-controls.attentioned input,
-.page-wrapper .body #gamegrid-controls.attentioned button {
+.body #gamegrid-controls.attentioned input,
+.body #gamegrid-controls.attentioned button {
   height: 30px;
   font-size: 130%;
   -webkit-border-radius: 5px;
@@ -1669,55 +1676,55 @@ strong {
   vertical-align: middle;
   padding-left: 5px;
 }
-.page-wrapper .body #gamegrid-games .wrapper {
+.body #gamegrid-games .wrapper {
   margin: 10px 5px;
 }
-.page-wrapper .body #gamegrid-games .wrapper.box {
+.body #gamegrid-games .wrapper.box {
   border: 1px solid #4d4b49;
   background: #262626;
 }
-.page-wrapper .body #gamegrid-games table {
+.body #gamegrid-games table {
   width: 100%;
   background: transparent;
 }
-.page-wrapper .body #gamegrid-games table thead {
+.body #gamegrid-games table thead {
   background: transparent;
   border-bottom: 5px solid #1c1c1c;
 }
-.page-wrapper .body #gamegrid-games table th {
+.body #gamegrid-games table th {
   text-align: left;
   font-weight: bold;
   height: 50px;
   vertical-align: middle;
 }
-.page-wrapper .body #gamegrid-games table th button {
+.body #gamegrid-games table th button {
   margin: 0;
   padding: 0;
   background: transparent;
 }
-.page-wrapper .body #gamegrid-games table td {
+.body #gamegrid-games table td {
   text-align: left;
   vertical-align: top;
   background: #222;
   border-top: 1px solid #1c1c1c;
 }
-.page-wrapper .body #gamegrid-games .ordering .order-by:not(.active) .icon {
+.body #gamegrid-games .ordering .order-by:not(.active) .icon {
   display: none;
 }
-.page-wrapper .body #gamegrid-games .ordering .order-by.active-asc .icon {
+.body #gamegrid-games .ordering .order-by.active-asc .icon {
   background-position: -288px -120px;
 }
-.page-wrapper .body #gamegrid-games .ordering .order-by.active-desc .icon {
+.body #gamegrid-games .ordering .order-by.active-desc .icon {
   background-position: -313px -119px;
 }
-.page-wrapper .body #gamegrid-games .ordering .game-properties {
+.body #gamegrid-games .ordering .game-properties {
   padding-left: 10px;
 }
-.page-wrapper .body #gamegrid-games .ordering .owner {
+.body #gamegrid-games .ordering .owner {
   position: relative;
   text-align: left;
 }
-.page-wrapper .body #gamegrid-games .ordering .owner .profile {
+.body #gamegrid-games .ordering .owner .profile {
   padding-right: 5px;
   display: none;
   padding: 10px;
@@ -1728,17 +1735,17 @@ strong {
   width: 200px;
   background: #3a3a3a;
 }
-.page-wrapper .body #gamegrid-games .ordering .owner .profile .avatar {
+.body #gamegrid-games .ordering .owner .profile .avatar {
   float: left;
   margin: 5px;
 }
-.page-wrapper .body #gamegrid-games .ordering .owner .profile .details {
+.body #gamegrid-games .ordering .owner .profile .details {
   text-align: left;
 }
-.page-wrapper .body #gamegrid-games .ordering .owner:hover .profile {
+.body #gamegrid-games .ordering .owner:hover .profile {
   display: block;
 }
-.page-wrapper .body #gamegrid-games .games-container .game .logo {
+.body #gamegrid-games .games-container .game .logo {
   width: 184px;
   margin: 5px;
   float: left;
@@ -1746,24 +1753,24 @@ strong {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-.page-wrapper .body #gamegrid-games .games-container .game .details {
+.body #gamegrid-games .games-container .game .details {
   margin-left: 194px;
 }
-.page-wrapper .body #gamegrid-games .games-container .owner {
+.body #gamegrid-games .games-container .owner {
   border-left: 1px solid #2a2a2a;
 }
-.page-wrapper footer {
+footer {
   font-size: 12px;
   font-family: Consolas, "Courier new", monospace;
   margin: 0;
   padding: 20px 0 20px 0;
   clear: both;
 }
-.page-wrapper footer a {
+footer a {
   color: #444;
   text-decoration: none;
 }
-.page-wrapper footer a:hover {
+footer a:hover {
   text-decoration: underline;
 }
 /**
@@ -1771,22 +1778,37 @@ strong {
  */
 .container {
   width: 1180px;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
 }
 .sidebar {
   width: 300px;
   float: right;
   clear: right;
   margin: 0 0 20px 0;
-  -webkit-transition: all 1s ease-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 .content {
   color: #b0aeac;
   margin: 20px 0 20px 0;
   width: 860px;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
 }
 .attentioned {
   margin: 50px auto 50px auto;
   width: 885px;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
 }
 @media (max-width: 1200px) {
   .container {
@@ -1819,12 +1841,25 @@ strong {
   }
 }
 @media (max-width: 767px) {
+  header {
+    margin-bottom: 20px;
+  }
+  header h1 {
+    font-size: 26px;
+    color: #ccc;
+    margin: 15px 0 0 10px;
+    text-shadow: #331 0px 0px 2px;
+  }
   .container,
-  .full,
   .sidebar,
   .content {
     width: 100%;
     float: none;
+  }
+  .attentioned {
+    width: 98%;
+    float: none;
+    margin: 40px 1% 40px 1%;
   }
   .page-wrapper .container .sidebar,
   .page-wrapper .container .content {
