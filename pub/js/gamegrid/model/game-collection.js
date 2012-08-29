@@ -41,12 +41,6 @@ define([
 			this.sort();
 		},
 
-		getFiltered: function() {
-			return (this.viewFilter)
-				? this.filter(this.viewFilter)
-				: this.models;
-		},
-
 		comparator: function(game) {
 			return game.get(this.orderKey) || 0;
 		},
@@ -87,6 +81,18 @@ define([
 							.trigger('addgames:tick', status, id);
 					}
 				})
+			});
+		},
+
+		getFiltered: function() {
+			return (this.viewFilter)
+				? this.filter(this.viewFilter)
+				: this.models;
+		},
+
+		filteredToJSON: function(options) {
+			return _.map(this.getFiltered(), function(game) {
+				return game.toJSON(options);
 			});
 		},
 

@@ -77,13 +77,9 @@ define([
 			} else {
 				this.$el.fadeIn();
 			}
-			var data = this.model.toJSON();
-			data.orderKeys = {
-				name: 'Name',
-				releaseDate: 'Released',
-				ownerHours: 'Hours',
-				metascore: 'Rating'
-			};
+
+			var data = this.model.filteredToJSON();
+			data.sorters = this.model.getAvailableSorters();
 
 			this.$el.html(this.template(data));
 

@@ -4,21 +4,15 @@
 		<thead>
 			<tr class="ordering">
 				<th class="game-properties">
-					<button class="order-by" value="name">
-						<span class="icon icon-order-by" />Name
+				<%
+					var lastId = _.last(_.keys(data.sorters));
+					_.each(data.sorters, function(sorter, id) {
+				%>
+					<button class="order-by" value="<%- id %>">
+						<span class="icon icon-order-by" /><%- sorter.title %>
 					</button>
-					&#47;
-					<button class="order-by" value="releaseDate">
-						<span class="icon icon-order-by" />Released
-					</button>
-					&#47;
-					<button class="order-by" value="owner-hours">
-						<span class="icon icon-order-by" />Hours
-					</button>
-					&#47;
-					<button class="order-by" value="metascore">
-						<span class="icon icon-order-by" />Rating
-					</button>
+					<% if (id !== lastId) print('/'); %>
+				<% }); %>
 
 				</th>
 				<%

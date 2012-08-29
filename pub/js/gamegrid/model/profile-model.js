@@ -25,6 +25,15 @@ define([
 
 		fetchGames: function(options) {
 			this.games.fetch(options);
+		},
+
+		toJSON: function(options) {
+			var data = _.clone(this.attributes);
+			data.games = {};
+			_.each(this.games.toJSON(), function(game) {
+				data.games[game.id] = game;
+			});
+			return data;
 		}
 	});
 

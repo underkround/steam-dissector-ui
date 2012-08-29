@@ -10,7 +10,12 @@ define([
 ){
 
 	var ProfileCollection = Backbone.Collection.extend({
-		url: config.profilesUrl
+		url: config.profilesUrl,
+
+		filteredToJSON: function(options) {
+			// no filters for profiles atm
+			return this.toJSON(options);
+		}
 	});
 
 	return ProfileCollection;

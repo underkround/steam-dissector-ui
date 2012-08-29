@@ -25,6 +25,8 @@ define([
 ){
 
 	var ProfileGamesComposite = Backbone.Model.extend({
+		availableSorters: {},
+
 		initialize: function() {
 			this.games = new GameCollection;
 			this.profiles = new ProfileCollection;
@@ -92,25 +94,60 @@ define([
 			}
 		},
 
-		toJSON: function(skipFilters) {
-			var games = (skipFilters === true)
-				? this.games.models
-				: this.games.getFiltered();
-			var data = {
-				games: _.map(games, function(g) {
-					return g.toJSON();
-				}),
-				profiles: this.profiles.map(function(profile){
-					var profileData = profile.toJSON();
-					profileData.games = {};
-					_.each(profile.games.toJSON(), function(profileGame) {
-						profileData.games[profileGame.id] = profileGame;
-					});
-					return profileData;
-				})
+		filteredToJSON: function() {
+			return {
+				games:    this.games.filteredToJSON(),
+				profiles: this.profiles.filteredToJSON()
 			};
-			return data;
+		},
+
+		toJSON: function(options) {
+			return {
+				games:    this.games.toJSON(options),
+				profiles: this.profiles.toJSON(options)
+			}
+		},
+
+		getAvailableSorters: function() {
+			return this.availableSorters;
+		},
+
+		addAvailableSorter: function(id, title, sorter) {
+			sorter.id = id;
+			sorter.title = title;
+			this.availableSorters[id] = sorter;
 		}
+	});
+
+
+	//
+	// Sorters
+	//
+
+	var addSorter = _.bind(
+		ProfileGamesComposite.prototype.addAvailableSorter,
+		ProfileGamesComposite.prototype
+	);
+
+	addSorter('name', 'Name', function(game) {
+		return game.name;
+	});
+
+	addSorter('releaseDate', 'Released', function(game) {
+		return game.releaseDate;
+	});
+
+	addSorter('ownerHours', 'Hours', function(game) {
+		return _.reduce(game.owners, function(memo, profile) {
+			var profileGame = profile.getGame(game.id);
+			return (profileGame && profileGame.hours)
+				? profileGame.hours
+				: 0;
+		}, 0);
+	});
+
+	addSorter('metascore', 'Rating', function(game) {
+		return (game.metascore > 0) ? game.metascore : 0;
 	});
 
 	return ProfileGamesComposite;
