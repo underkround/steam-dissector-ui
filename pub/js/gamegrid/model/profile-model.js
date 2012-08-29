@@ -1,4 +1,8 @@
-
+/**
+ * Events:
+ *  games:reset     (games, this)
+ *  games:error     (this)
+ */
 define([
 	'underscore',
 	'backbone',
@@ -13,26 +17,34 @@ define([
 		urlRoot: config.profilesUrl,
 
 		initialize: function() {
-			this.games = new Backbone.Collection();
+			this.games = {};
 		},
 
 		parse: function(data) {
 			if (data.gamesUrl) {
-				this.games.url = config.baseUrl + data.gamesUrl;
+				data.absoluteGamesUrl = config.baseUrl + data.gamesUrl;
 			}
 			return data;
 		},
 
 		fetchGames: function(options) {
-			this.games.fetch(options);
+			var self = this;
+			$.getJSON(this.get('absoluteGamesUrl'))
+				.done(function(games) {
+					self.games = {};
+					_.each(games, function(game) {
+						self.games[game.id] = game;
+					});
+					self.trigger('games:reset', self.games, self);
+				}).error(function() {
+					self.games = {};
+					self.trigger('games:error', self);
+				});
 		},
 
 		toJSON: function(options) {
 			var data = _.clone(this.attributes);
-			data.games = {};
-			_.each(this.games.toJSON(), function(game) {
-				data.games[game.id] = game;
-			});
+			data.games = this.games;
 			return data;
 		}
 	});

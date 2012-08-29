@@ -65,8 +65,8 @@ define([
 		},
 
 		onProfileAdd: function(profile) {
-			profile.games.on('reset', this.addGames, this);
-			if (profile.games.length < 1) {
+			profile.on('games:reset', this.addGames, this);
+			if (_.isEmpty(profile.games.length)) {
 				profile.fetchGames();
 			}
 		},
@@ -88,7 +88,7 @@ define([
 			if (_.isArray(games)) {
 				this.games.addGames(games);
 			} else if (_.isObject(games)) {
-				this.games.addGames(games.pluck('id'));
+				this.games.addGames(_.pluck(games, 'id'));
 			} else if (_.isString(games) || _.isNumber(games)) {
 				this.games.addGames([games]);
 			}
