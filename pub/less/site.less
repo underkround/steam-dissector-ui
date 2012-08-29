@@ -36,10 +36,13 @@
 
 // -----
 
+body, html {
+	min-height: 100%;
+	height: 100%;
+}
 body {
 	color: @baseColor;
 	background-color: #000;
-	min-height: 100%;
 }
 strong {
 	font-weight: bold;
@@ -71,10 +74,11 @@ button:hover {
 }
 
 .page-wrapper {
-	background-image: linear-gradient(top, #3B3938 70px, black 270px);
-	background-image: -moz-linear-gradient(top, #3B3938 70px, black 270px);
-	background-image: -webkit-linear-gradient(top, #3B3938 70px, black 270px);
-
+//	background-image: linear-gradient(top, #3B3938 70px, black 470px);
+//	background-image: -moz-linear-gradient(top, #3B3938 70px, black 470px);
+//	background-image: -webkit-linear-gradient(top, #3B3938 70px, black 470px);
+	#gradient > .vertical(#303a26, #000);
+	min-height: 100%;
 	font-family: @baseFontFamily;
 	font-size: @baseFontSize;
 }
