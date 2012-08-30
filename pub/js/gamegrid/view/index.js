@@ -24,10 +24,6 @@ define([
 
 		initialize: function() {
 			this.model = new ProfileGamesComposite();
-			this.model.on('all', function(event) {
-				console.log('Composite event: ', event, arguments);
-			});
-			this.model.on('addgames:done', function(){ console.log('composite addgames done')});
 		},
 
 		render: function() {
