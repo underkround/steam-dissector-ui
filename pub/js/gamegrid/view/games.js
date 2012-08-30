@@ -24,7 +24,7 @@ define([
 			this.model.games
 				.on('add', this.onGameAdd, this)
 				.on('remove', this.onGameRemove, this)
-				.on('addgames:done', this.render, this)
+				.on('fetchgames:done', this.render, this)
 				.on('reset', this.render, this);
 
 			this.$el.hide();

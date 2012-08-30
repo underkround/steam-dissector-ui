@@ -42,10 +42,41 @@ define([
 				});
 		},
 
+		hasGame: function(game) {
+			return !! this.getGame(game);
+		},
+
+		getGame: function(game) {
+			var gameId = this._parseGameId(game);
+			return this.games[gameId];
+		},
+
+		getHoursOnRecordForGame: function(game) {
+			var game = this.getGame(game);
+			if (game) {
+				return parseFloat(game.hoursOnRecord) || 0.0;
+			}
+			return 0.0;
+		},
+
+		getHoursLast2WeeksForGame: function(game) {
+			var game = this.getGame(game);
+			if (game) {
+				return parseFloat(game.hoursLast2Weeks) || 0.0;
+			}
+			return 0.0;
+		},
+
 		toJSON: function(options) {
 			var data = _.clone(this.attributes);
 			data.games = this.games;
 			return data;
+		},
+
+		_parseGameId: function(game) {
+			var gameId = (_.isObject(game))
+				? game.get('id')
+				: game;
 		}
 	});
 

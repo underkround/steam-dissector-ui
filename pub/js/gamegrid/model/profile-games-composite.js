@@ -61,36 +61,41 @@ define([
 					console.error('Could not load profile', profile.get('id'), profile);
 					self.trigger('addprofile:error', profile);
 				}
-			})
+			});
 		},
 
 		onProfileAdd: function(profile) {
-			profile.on('games:reset', this.addGames, this);
+			profile.on('games:reset', this.fetchGames, this);
 			if (_.isEmpty(profile.games.length)) {
 				profile.fetchGames();
 			}
 		},
 
 		onProfileRemove: function(profile) {
-			// @TODO
-			console.log('TODO: onProfileRemove', profile, arguments);
+			this.games.each(function(game) {
+				game.removeOwner(profile);
+			});
 		},
 
 		onGameAdd: function(game) {
-			// @TODO
+			this.profiles.each(function(profile) {
+				if (profile.hasGame(game)) {
+					game.addOwner(profile);
+				}
+			})
 		},
 
 		onGameRemove: function(game) {
 			// @TODO
 		},
 
-		addGames: function(games) {
+		fetchGames: function(games) {
 			if (_.isArray(games)) {
-				this.games.addGames(games);
+				this.games.fetchGames(games);
 			} else if (_.isObject(games)) {
-				this.games.addGames(_.pluck(games, 'id'));
+				this.games.fetchGames(_.pluck(games, 'id'));
 			} else if (_.isString(games) || _.isNumber(games)) {
-				this.games.addGames([games]);
+				this.games.fetchGames([games]);
 			}
 		},
 
@@ -137,12 +142,12 @@ define([
 		return game.releaseDate;
 	});
 
-	addSorter('ownerHours', 'Hours', function(game) {
+	addSorter('ownerHoursTotal', 'Hours (total)', function(game) {
 		return _.reduce(game.owners, function(memo, profile) {
-			var profileGame = profile.getGame(game.id);
-			return (profileGame && profileGame.hours)
-				? profileGame.hours
-				: 0;
+			if (profile.games[game.id]) {
+				memo += parseFloat(profileGame.hours)
+			}
+			return memo;
 		}, 0);
 	});
 

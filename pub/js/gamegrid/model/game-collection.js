@@ -1,11 +1,11 @@
 /**
  *
  * Events:
- *   addgames:begin     (status)
- *   addgames:done      (status)
- *   addgames:tick      (status, id)
- *   addgames:success   (status, id)
- *   addgames:error     (status, id)
+ *   fetchgames:begin     (status)
+ *   fetchgames:done      (status)
+ *   fetchgames:tick      (status, id)
+ *   fetchgames:success   (status, id)
+ *   fetchgames:error     (status, id)
  */
 
 define([
@@ -24,11 +24,15 @@ define([
 
 	var GameCollection = Backbone.Collection.extend({
 		url: config.gamesUrl,
-		orderReverse: false,
-		orderKey: 'name',
-		viewFilter: null,
 
 		initialize: function() {
+			this.orderReverse = false;
+			this.orderKey = 'name';
+			this.filterCallback = null;
+		},
+
+		setFilter: function(filter) {
+			this.filterCallback = filter;
 		},
 
 		orderByToggle: function(orderKey) {
@@ -53,16 +57,16 @@ define([
 			return _.sortBy(this.models, comparator);
 		},
 
-		addGames: function(idsToAdd) {
+		fetchGames: function(idsToAdd) {
 			var self = this,
 				existingIds = this.pluck('id');
 				newIds = _.difference(idsToAdd, existingIds);
 
 			var status = new utils.LoadStatus(newIds, function() {
-				self.trigger('addgames:done', status);
+				self.trigger('fetchgames:done', status);
 			});
 
-			this.trigger('addgames:begin', status);
+			this.trigger('fetchgames:begin', status);
 
 			_.each(newIds, function(id) {
 				var game = new GameModel({id: id});
@@ -70,23 +74,23 @@ define([
 					success: function(){
 						var id = game.get('id');
 						status.success(id);
-						self.trigger('addgames:success', status, id)
-							.trigger('addgames:tick', status, id)
+						self.trigger('fetchgames:success', status, id)
+							.trigger('fetchgames:tick', status, id)
 							.add(game);
 					},
 					error: function(){
 						var id = game.get('id');
 						status.error(id);
-						self.trigger('addgames:error', status, id)
-							.trigger('addgames:tick', status, id);
+						self.trigger('fetchgames:error', status, id)
+							.trigger('fetchgames:tick', status, id);
 					}
 				})
 			});
 		},
 
 		getFiltered: function() {
-			return (this.viewFilter)
-				? this.filter(this.viewFilter)
+			return (this.filterCallback)
+				? this.filter(this.filterCallback)
 				: this.models;
 		},
 

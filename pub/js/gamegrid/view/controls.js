@@ -36,9 +36,9 @@ define([
 				.on('addprofile:error', this.endProgress, this)
 				.on('addprofile:success', this.checkAttentionLevel, this);
 			this.model.games
-				.on('addgames:begin', this.addGamesBegin, this)
-				.on('addgames:done', this.addGamesEnd, this)
-				.on('addgames:tick', this.addGamesTick, this)
+				.on('fetchgames:begin', this.fetchGamesBegin, this)
+				.on('fetchgames:done', this.fetchGamesEnd, this)
+				.on('fetchgames:tick', this.fetchGamesTick, this)
 				.on('add', this.checkAttentionLevel, this);
 
 			this.inputEl.focus();
@@ -94,20 +94,19 @@ define([
 			})
 		},
 
-		addGamesBegin: function(status) {
-			console.log('addGamesBegin');
+		fetchGamesBegin: function(status) {
 			this.updateProgress({
 				message: 'Loading games: 0/' + status.loadedCount()
 			});
 		},
 
-		addGamesEnd: function(status) {
+		fetchGamesEnd: function(status) {
 			this.endProgress({
 				message: 'Loading games: done!'
 			});
 		},
 
-		addGamesTick: function(status) {
+		fetchGamesTick: function(status) {
 			this.updateProgress({
 				message: 'Loading games: ' + status.loadedCount() + '/' + status.totalCount(),
 				successPercent: status.successPercent(),

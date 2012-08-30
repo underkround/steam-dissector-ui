@@ -19,7 +19,9 @@ define([
 		},
 
 		initialize: function() {
-			this.model.games.on('addgames:done', this.render, this);
+			// TODO: debounce render on tick
+
+			this.model.games.on('fetchgames:done', this.render, this);
 
 			this.$el.hide();
 		},
