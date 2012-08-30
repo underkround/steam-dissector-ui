@@ -74,9 +74,12 @@ define([
 		},
 
 		_parseGameId: function(game) {
-			var gameId = (_.isObject(game))
-				? game.get('id')
-				: game;
+			if (_.isObject(game)) {
+				return (typeof game.get === 'function')
+					? game.get('id')
+					: game.id;
+			}
+			return game;
 		}
 	});
 
