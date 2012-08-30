@@ -32,8 +32,11 @@ define([
 		},
 
 		updateFilters: function() {
-			var filters = {};
-			this.$('.filter.active').each(function(){
+			var self = this,
+				games = this.model.games,
+				filters = {};
+			games.resetFilters({silent: true});
+			this.$('.filter.active').each(function() {
 				var $this = $(this),
 					value = $this.val(),
 					set = $this.attr('data-set');
@@ -45,6 +48,12 @@ define([
 				}
 			});
 			console.log('using filters: ', filters);
+			_.each(filters, function(values, key) {
+				if (self.filterFactories[key]) {
+					games.addFilter(self.filterFactories[key](values));
+				}
+			});
+			games.applyFilters();
 		},
 
 		render: function() {
@@ -63,7 +72,50 @@ define([
 			}
 			data.owners = this.model.profiles.toJSON();
 			this.$el.html(this.template(data));
+		},
+
+		filterFactories: {
+			// @TODO: owners
+
+			features: function(filterValues) {
+				return function(game) {
+					var ref = _(game.get('features'));
+					// Why does this not work:  !
+					//return _(filterValues).every(features.contains);
+					return _(filterValues).every(function(filterValue) {
+						return ref.contains(filterValue);
+					});
+				};
+			},
+
+			genres: function(filterValues) {
+				return function(game) {
+					var ref = _(game.get('genres'));
+					return _(filterValues).every(function(filterValue) {
+						return ref.contains(filterValue);
+					});
+				};
+			},
+
+			developers: function(filterValues) {
+				return function(game) {
+					var ref = _(game.get('developers'));
+					return _(filterValues).every(function(filterValue) {
+						return ref.contains(filterValue);
+					});
+				};
+			},
+
+			publishers: function(filterValues) {
+				return function(game) {
+					var ref = _(game.get('publishers'));
+					return _(filterValues).every(function(filterValue) {
+						return ref.contains(filterValue);
+					});
+				};
+			}
 		}
+
 	});
 
 	return FiltersView;
