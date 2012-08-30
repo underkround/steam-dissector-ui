@@ -1,4 +1,3 @@
-
 define([
 	'jquery',
 	'underscore',
@@ -81,7 +80,7 @@ define([
 				return function(game) {
 					var ref = _(game.get('features'));
 					// Why does this not work:  !
-					//return _(filterValues).every(features.contains);
+					//return _(filterValues).every(ref.contains);
 					return _(filterValues).every(function(filterValue) {
 						return ref.contains(filterValue);
 					});
