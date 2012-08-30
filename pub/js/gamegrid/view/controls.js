@@ -45,16 +45,14 @@ define([
 		},
 
 		checkAttentionLevel: function() {
-			if (
-				this.model.games.length > 0
-			) {
-				this.$el
-					.removeClass('attentioned')
-					.addClass('sidebar');
-			} else {
+			if (this.model.games.isEmpty()) {
 				this.$el
 					.removeClass('sidebar')
 					.addClass('attentioned')
+			} else {
+				this.$el
+					.removeClass('attentioned')
+					.addClass('sidebar');
 			}
 		},
 
