@@ -2,20 +2,17 @@
 
 	<h2>Filters</h2>
 
-	<!--
-			<button class="filter active">
-				<span class="icon icon-single-player"></span>
-				Single-player
+	<div class="filter-set owners" id="filter-owners">
+		<div class="title">By Owner</div>
+
+		<div class="filters">
+			<% _.each(data.owners, function(item) { %>
+			<button class="filter" value="<%- item.id %>" data-set="owners">
+				<%- item.name %>
 			</button>
-			<button class="filter">
-				<span class="icon icon-multi-player"></span>
-				Multi-player
-			</button>
-			<button class="filter active">
-				<span class="icon icon-co-op"></span>
-				Co-op
-			</button>
-	-->
+			<% }); %>
+		</div>
+	</div>
 
 	<div class="filter-set features" id="filter-features">
 		<div class="title">By Features</div>
@@ -60,18 +57,6 @@
 			<% _.each(data.publishers, function(item) { %>
 			<button class="filter" value="<%- item %>" data-set="publishers">
 				<%- item %>
-			</button>
-			<% }); %>
-		</div>
-	</div>
-
-	<div class="filter-set owners" id="filter-owners">
-		<div class="title">By Owner</div>
-
-		<div class="filters">
-			<% _.each(data.owners, function(item) { %>
-			<button class="filter" value="<%- item.id %>" data-set="owners">
-				<%- item.name %>
 			</button>
 			<% }); %>
 		</div>
