@@ -17,7 +17,7 @@ define([
 		},
 
 		addOwner: function(owner) {
-			if ( ! this.hasOwners([owner])) {
+			if ( ! this.hasOwner(owner)) {
 				this.owners.push(owner);
 			}
 		},
