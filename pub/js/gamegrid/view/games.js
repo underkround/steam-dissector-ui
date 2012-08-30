@@ -28,7 +28,8 @@ define([
 				.on('remove', this.onGameRemove, this)
 				.on('fetchgames:done', this.render, this)
 				.on('fetchgames:tick', throttledRender, this)
-				.on('reset', this.render, this);
+				.on('reset', this.render, this)
+				.on('filters:apply', this.render, this);
 
 			this.$el.hide();
 		},
@@ -69,7 +70,7 @@ define([
 			// @TODO
 		},
 
-		render: function(){
+		render: function() {
 			var games = this.model.games;
 			if (games.isEmpty()) {
 				this.$el.fadeOut();
