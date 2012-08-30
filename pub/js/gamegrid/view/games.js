@@ -21,17 +21,16 @@ define([
 		},
 
 		initialize: function() {
+			var throttledRender = _.throttle(this.render, 500);
+
 			this.model.games
 				.on('add', this.onGameAdd, this)
 				.on('remove', this.onGameRemove, this)
 				.on('fetchgames:done', this.render, this)
+				.on('fetchgames:tick', throttledRender, this)
 				.on('reset', this.render, this);
 
 			this.$el.hide();
-
-			// debug
-			//this.model.on('all', function(){console.log(arguments);});
-			//this.model.games.on('all', function(){ console.log('games:all', arguments); });
 		},
 
 		onOrderByClick: function(event) {
