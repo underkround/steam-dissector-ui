@@ -23,17 +23,17 @@ define([
 			this.inputContainer = this.$('.input-container');
 			this.inputEl        = $('.add-profile-input', this.inputContainer);
 
+			this.messagesEl        = $('.add-profile-messages');
+
 			this.progressContainer = this.$('.progress-container');
 			this.neutralBar        = $('.bar-neutral', this.progressContainer);
 			this.successBar        = $('.bar-success', this.progressContainer);
 			this.errorBar          = $('.bar-error', this.progressContainer);
 			this.progressCaptionEl = $('.progress-caption', this.progressContainer);
 
-			// DEBUG
-			//this.model.games.on('all', function(){ console.log('games event', arguments); });
 
 			this.model
-				.on('addprofile:error', this.endProgress, this)
+				.on('addprofile:error', this.onAddProfileError, this)
 				.on('addprofile:success', this.checkAttentionLevel, this);
 			this.model.games
 				.on('fetchgames:begin', this.fetchGamesBegin, this)
@@ -56,6 +56,11 @@ define([
 			}
 		},
 
+		onAddProfileError: function(profile, xhr) {
+			this.endProgress();
+			this.setError(xhr);
+		},
+
 		onAddProfileKeypress: function(event) {
 			if (event.which === 13) {
 				this.onAddProfile();
@@ -74,22 +79,29 @@ define([
 			}
 		},
 
+		setError: function(xhr) {
+			if (xhr && xhr.statusText) {
+				this.messagesEl.html(
+					'<div class="alert alert-error">' + xhr.statusText + '</div>'
+				);
+			} else {
+				this.messagesEl.html('');
+			}
+		},
+
 		startProgress: function(progress) {
 			var self = this;
+			this.setError();
 			this.updateProgress(progress);
 			this.inputEl.attr('disabled', true);
-			this.inputContainer.fadeOut('medium', function() {
-				self.progressContainer.fadeIn('medium');
-			})
+			self.progressContainer.fadeIn('medium');
 		},
 
 		endProgress: function(progress) {
 			var self = this;
 			this.updateProgress(progress);
 			this.inputEl.val('').removeAttr('disabled');
-			this.progressContainer.fadeOut('medium', function(){
-				self.inputContainer.fadeIn('medium');
-			})
+			this.progressContainer.fadeOut('medium');
 		},
 
 		fetchGamesBegin: function(status) {
@@ -113,6 +125,7 @@ define([
 		},
 
 		updateProgress: function(progress) {
+			progress = progress || {};
 			this.progressCaptionEl.html(progress.message || '');
 			this.neutralBar.css('width', (progress.neutralPercent || 0) + '%');
 			this.successBar.css('width', (progress.successPercent || 0) + '%');
