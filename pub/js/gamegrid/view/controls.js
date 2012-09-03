@@ -68,9 +68,10 @@ define([
 		},
 
 		onAddProfile: function() {
-			var match = this.inputEl.val().match(/[a-zA-Z0-9]+$/);
-			if (match.length === 1) {
-				var profileId = match[0];
+			var match = this.inputEl.val().match(/([a-zA-Z0-9]+)\/?$/);
+			console.log(match);
+			if (match && match.length === 2) {
+				var profileId = match[1];
 				this.startProgress({
 					neutralPercent: 100,
 					message: 'Loading profile ' + profileId + '...'
