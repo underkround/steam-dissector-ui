@@ -38,13 +38,16 @@ define([
 			this.profiles.on('remove', this.onProfileRemove, this);
 
 			// @TODO: remove some day
-			window.debug = this;
-			//this.debugOn();
+			if (config.debug) {
+				window.debug = this;
+				this.debugOn();
+			}
 		},
 
 		debugOn: function(){
-			this.games.on('all', function(){ console.log('event games:all', arguments); });
-			this.profiles.on('all', function(){ console.log('event profiles:all', arguments); });
+			this.on('all', function(){ console.log('[event] combiner:all', arguments); });
+			this.games.on('all', function(){ console.log('[event] games:all', arguments); });
+			this.profiles.on('all', function(){ console.log('[event] profiles:all', arguments); });
 		},
 
 		addProfile: function(profileId) {
