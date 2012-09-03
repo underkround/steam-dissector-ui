@@ -137,13 +137,21 @@ define([
 		},
 
 		getProperties: function() {
+			return this.getPropertiesFrom(this.models);
+		},
+
+		filteredGetProperties: function() {
+			return this.getPropertiesFrom(this.getFiltered());
+		},
+
+		getPropertiesFrom: function(games) {
 			var properties = {
 				developers: [],
 				features: [],
 				genres: [],
 				publishers: []
 			};
-			this.each(function(game) {
+			_.each(games, function(game) {
 				var gameProperties;
 				for (key in properties) {
 					gameProperties = game.get(key);
@@ -153,7 +161,7 @@ define([
 				}
 			});
 			return properties;
-		}
+		},
 	});
 
 	return GameCollection;
