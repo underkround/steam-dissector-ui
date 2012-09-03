@@ -2,7 +2,7 @@
  *
  * Events:
  *   addprofile:success  (profile)
- *   addprofile:error    (profile)
+ *   addprofile:error    (profile, xhr)
  *
  */
 
@@ -53,13 +53,12 @@ define([
 				id: profileId
 			});
 			profile.fetch({
-				success: function(){
+				success: function(profile) {
 					self.profiles.add(profile);
 					self.trigger('addprofile:success', profile);
 				},
-				error: function(){
-					console.error('Could not load profile', profile.get('id'), profile);
-					self.trigger('addprofile:error', profile);
+				error: function(profile, xhr) {
+					self.trigger('addprofile:error', profile, xhr);
 				}
 			});
 		},
