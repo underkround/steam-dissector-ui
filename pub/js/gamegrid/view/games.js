@@ -3,11 +3,13 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
+	'config',
 	'text!templates/gamegrid/games.html'
 ], function(
 	$,
 	_,
 	Backbone,
+	config,
 	templateString
 ) {
 
@@ -21,7 +23,7 @@ define([
 		},
 
 		initialize: function() {
-			var throttledRender = _.throttle(this.render, 500);
+			var throttledRender = _.throttle(this.render, config.tickUpdateInterval);
 
 			this.model.games
 				.on('add', this.onGameAdd, this)

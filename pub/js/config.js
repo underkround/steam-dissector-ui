@@ -5,7 +5,8 @@ define([], (function(){
 		baseUrl:     baseUrl,
 		gamesUrl:    baseUrl + '/games',
 		profilesUrl: baseUrl + '/profiles',
-		debug:       true
+		debug:       false,
+		tickUpdateInterval: 1000
 	}
 })()
 );

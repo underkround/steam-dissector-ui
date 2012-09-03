@@ -38,8 +38,8 @@ define([
 			this.profiles.on('remove', this.onProfileRemove, this);
 
 			// @TODO: remove some day
+			window.debug = this;
 			if (config.debug) {
-				window.debug = this;
 				this.debugOn();
 			}
 		},

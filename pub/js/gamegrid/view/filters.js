@@ -2,11 +2,13 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
+	'config',
 	'text!templates/gamegrid/filters.html'
 ], function(
 	$,
 	_,
 	Backbone,
+	config,
 	templateString
 ) {
 
@@ -18,9 +20,11 @@ define([
 		},
 
 		initialize: function() {
-			// TODO: debounce render on tick
+			var throttledRender = _.throttle(this.render, config.tickUpdateInterval);
 
-			this.model.games.on('fetchgames:done', this.render, this);
+			this.model.games
+				.on('fetchgames:done', this.render, this)
+				.on('fetchgames:tick', throttledRender, this);
 
 			this.$el.hide();
 		},
