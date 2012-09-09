@@ -118,8 +118,12 @@ define([
 						self.trigger('fetchgames:error', status, id, self)
 							.trigger('fetchgames:tick', status, id, self);
 					}
-				})
+				});
 			});
+		},
+
+		getAll: function() {
+			return this.models;
 		},
 
 		getFiltered: function() {
@@ -153,7 +157,7 @@ define([
 			};
 			_.each(games, function(game) {
 				var gameProperties;
-				for (key in properties) {
+				for (var key in properties) {
 					gameProperties = game.get(key);
 					if (gameProperties) {
 						properties[key] = _.union(properties[key], gameProperties);
@@ -161,7 +165,7 @@ define([
 				}
 			});
 			return properties;
-		},
+		}
 	});
 
 	return GameCollection;

@@ -31,7 +31,6 @@ define([
 			this.errorBar          = $('.bar-error', this.progressContainer);
 			this.progressCaptionEl = $('.progress-caption', this.progressContainer);
 
-
 			this.model
 				.on('addprofile:error', this.onAddProfileError, this)
 				.on('addprofile:success', this.checkAttentionLevel, this);
@@ -39,6 +38,7 @@ define([
 				.on('fetchgames:begin', this.fetchGamesBegin, this)
 				.on('fetchgames:done', this.fetchGamesEnd, this)
 				.on('fetchgames:tick', this.fetchGamesTick, this)
+				//.on('fetchgames:error', this.fetchGamesEnd, this)
 				.on('add', this.checkAttentionLevel, this);
 
 			this.inputEl.focus();
@@ -48,7 +48,7 @@ define([
 			if (this.model.games.isEmpty()) {
 				this.$el
 					.removeClass('sidebar')
-					.addClass('attentioned')
+					.addClass('attentioned');
 			} else {
 				this.$el
 					.removeClass('attentioned')
@@ -93,15 +93,26 @@ define([
 			var self = this;
 			this.setError();
 			this.updateProgress(progress);
-			this.inputEl.attr('disabled', true);
-			self.progressContainer.fadeIn('medium');
+			this.inputEl
+				.attr('disabled', true);
+			this.inputContainer.fadeOut('medium', function() {
+				if (self.inputEl.is(':disabled')) {
+					self.progressContainer.fadeIn('medium');
+				}
+			});
 		},
 
 		endProgress: function(progress) {
 			var self = this;
 			this.updateProgress(progress);
-			this.inputEl.val('').removeAttr('disabled');
-			this.progressContainer.fadeOut('medium');
+			this.inputEl
+				.val('')
+				.removeAttr('disabled');
+			this.progressContainer.fadeOut('medium', function(){
+				if ( ! self.inputEl.is(':disabled')) {
+					self.inputContainer.fadeIn('medium');
+				}
+			});
 		},
 
 		fetchGamesBegin: function(status) {
@@ -130,7 +141,7 @@ define([
 			this.neutralBar.css('width', (progress.neutralPercent || 0) + '%');
 			this.successBar.css('width', (progress.successPercent || 0) + '%');
 			this.errorBar.css('width', (progress.errorPercent || 0) + '%');
-		},
+		}
 	});
 
 	return ControlsView;
