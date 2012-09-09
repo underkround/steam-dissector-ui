@@ -84,13 +84,11 @@ define([
 						}
 					)
 				};
-				console.log(filterSet, temp);
 				if ( ! filterSet.hasValues && ! _.isEmpty(filterSet.availableValues)) {
 					filterSets.hasValues = true;
 				}
 				filterSets.push(filterSet);
 			});
-			console.log('--');
 			return filterSets;
 		},
 
