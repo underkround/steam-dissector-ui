@@ -1053,9 +1053,10 @@ footer a:hover {
   background: #554;
   color: #8bc53f;
 }
-#gamegrid-filters .filter-set .filter.disabled {
+#gamegrid-filters .filter-set .filter:disabled {
   background: transparent;
   color: #445511;
+  cursor: default;
 }
 #gamegrid-controls {
   height: 40px;

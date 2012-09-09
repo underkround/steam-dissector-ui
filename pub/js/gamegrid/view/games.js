@@ -31,7 +31,7 @@ define([
 				.on('fetchgames:done', this.render, this)
 				.on('fetchgames:tick', throttledRender, this)
 				.on('reset', this.render, this)
-				.on('filters:apply', this.render, this);
+				.on('filters:reset', this.render, this);
 
 			this.$el.hide();
 		},
@@ -73,8 +73,8 @@ define([
 		},
 
 		render: function() {
-			var games = this.model.games;
-			if (games.isEmpty()) {
+			var gamesColl = this.model.games;
+			if (gamesColl.isEmpty()) {
 				this.$el.fadeOut();
 			} else {
 				this.$el.fadeIn();
@@ -85,8 +85,8 @@ define([
 
 			this.$el.html(this.template(data));
 
-			var orderBy = this.$('.order-by[value="' + games.orderKey + '"]');
-			if (games.orderReverse) {
+			var orderBy = this.$('.order-by[value="' + gamesColl.orderKey + '"]');
+			if (gamesColl.orderReverse) {
 				orderBy.addClass('active active-desc');
 			} else {
 				orderBy.addClass('active active-asc');

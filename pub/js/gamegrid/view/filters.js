@@ -1,3 +1,4 @@
+
 define([
 	'jquery',
 	'underscore',
@@ -15,6 +16,8 @@ define([
 	var FiltersView = Backbone.View.extend({
 		template: _.template(templateString, null, {variable: 'data'}),
 
+		selectedValuesByFilterId: {},
+
 		events: {
 			'click button.filter': 'onFilterClick'
 		},
@@ -24,7 +27,8 @@ define([
 
 			this.model.games
 				.on('fetchgames:done', this.render, this)
-				.on('fetchgames:tick', throttledRender, this);
+				.on('fetchgames:tick', throttledRender, this)
+				.on('filters:reset', this.render, this);
 
 			this.$el.hide();
 		},
@@ -35,54 +39,126 @@ define([
 		},
 
 		updateFilters: function() {
-			var self = this,
-				games = this.model.games,
-				filters = {};
-			games.resetFilters({silent: true});
+			var self    = this,
+				games   = this.model.games,
+				filters = [];
+			this.selectedValuesByFilterId = {};
 			this.$('.filter.active').each(function() {
-				var $this = $(this),
-					value = $this.val(),
-					set = $this.attr('data-set');
-				if (set) {
-					if ( ! filters[set]) {
-						filters[set] = [];
+				var $this    = $(this),
+					value    = $this.val(),
+					filterId = $this.attr('data-filter-id');
+				if (filterId) {
+					if ( ! self.selectedValuesByFilterId[filterId]) {
+						self.selectedValuesByFilterId[filterId] = [];
 					}
-					filters[set].push(value);
+					self.selectedValuesByFilterId[filterId].push(value);
 				}
 			});
-			console.log('using filters: ', filters);
-			_.each(filters, function(values, key) {
-				if (self.filterFactories[key]) {
-					games.addFilter(self.filterFactories[key](values));
+			console.log('using filter values', self.selectedValuesByFilterId);
+			_.each(self.selectedValuesByFilterId, function(values, filterId) {
+				if (self.filterFactories[filterId]) {
+					var filter = self.filterFactories[filterId].create(values);
+					filters.push(filter);
 				}
 			});
-			games.applyFilters();
+			games.setFilters(filters);
+		},
+
+		getFilterSetsForRender: function() {
+			var self         = this,
+				visibleGames = this.model.games.getFiltered(),
+				allGames     = this.model.games.getAll(),
+				filterSets   = [];
+			filterSets.hasValues = false;
+			_.each(this.filterFactories, function(filterFactory) {
+				var filterId = filterFactory.id;
+				var temp = filterFactory.parseValues(visibleGames);
+				var filterSet = {
+					id:              filterId,
+					title:           filterFactory.title,
+					availableValues: filterFactory.parseValues(allGames),
+					selectedValues:  self.selectedValuesByFilterId[filterId] || [],
+					enabledValues:   _(temp).map(
+						function(item) {
+							return item.value || item;
+						}
+					)
+				};
+				console.log(filterSet, temp);
+				if ( ! filterSet.hasValues && ! _.isEmpty(filterSet.availableValues)) {
+					filterSets.hasValues = true;
+				}
+				filterSets.push(filterSet);
+			});
+			console.log('--');
+			return filterSets;
 		},
 
 		render: function() {
-			var data = this.model.games.getProperties();
-			var isEmpty = true;
-			for (k in data) {
-				if ( ! _.isEmpty(data[k])) {
-					isEmpty = false;
-					break;
-				}
-			}
-			if (isEmpty) {
-				this.$el.fadeOut();
-			} else {
+			var data = {
+				filterSets: this.getFilterSetsForRender(),
+				owners:     this.model.profiles.toJSON()
+			};
+			if (data.filterSets.hasValues) {
 				this.$el.fadeIn();
+			} else {
+				this.$el.fadeOut();
 			}
-			data.owners = this.model.profiles.toJSON();
 			this.$el.html(this.template(data));
+		}
+	});
+
+	FiltersView.prototype.filterFactories = {};
+
+	var addFilterFactory = function(filterFactory) {
+		FiltersView.prototype.filterFactories[filterFactory.id] = filterFactory;
+	};
+
+	// -----
+
+	addFilterFactory({
+		id:     'owners',
+		title:  'By owners',
+		create: function(filterValues) {
+			return function(game) {
+				return true; // @TODO
+			};
 		},
+		parseValues: function(games) {
+			var owners = this._parseOwners(games);
+			return _.map(owners, function(owner) {
+				return {
+					value: owner.id,
+					title: owner.get('name')
+				};
+			});
+		},
+		_parseOwners: function(games) {
+			return _.chain(games)
+				.pluck('owners')
+				.flatten()
+				.uniq()
+				.value();
+		}
+	});
 
-		filterFactories: {
-			// @TODO: owners
-
-			features: function(filterValues) {
+	// create these 4 similar filters
+	var specs = [
+		['genres', 'By genres'],
+		['features', 'By features'],
+		['developers', 'By developers'],
+		['publishers', 'By plublishers']
+	];
+	for (var i in specs) {
+		var id = specs[i][0],
+		    title = specs[i][1];
+		addFilterFactory({
+			id:     id,
+			title:  title,
+			create: function(filterValues) {
+				var filterId = this.id;
 				return function(game) {
-					var ref = _(game.get('features'));
+					var ref = _(game.get(filterId));
 					// Why does this not work:  !
 					//return _(filterValues).every(ref.contains);
 					return _(filterValues).every(function(filterValue) {
@@ -90,36 +166,18 @@ define([
 					});
 				};
 			},
-
-			genres: function(filterValues) {
-				return function(game) {
-					var ref = _(game.get('genres'));
-					return _(filterValues).every(function(filterValue) {
-						return ref.contains(filterValue);
-					});
-				};
-			},
-
-			developers: function(filterValues) {
-				return function(game) {
-					var ref = _(game.get('developers'));
-					return _(filterValues).every(function(filterValue) {
-						return ref.contains(filterValue);
-					});
-				};
-			},
-
-			publishers: function(filterValues) {
-				return function(game) {
-					var ref = _(game.get('publishers'));
-					return _(filterValues).every(function(filterValue) {
-						return ref.contains(filterValue);
-					});
-				};
+			parseValues: function(games) {
+				var self = this;
+				return _.chain(games)
+					.map(function(game){
+						return game.get(self.id) || [];
+					})
+					.flatten()
+					.unique()
+					.value();
 			}
-		}
-
-	});
+		});
+	}
 
 	return FiltersView;
 });

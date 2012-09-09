@@ -2,64 +2,27 @@
 
 	<h2>Filters</h2>
 
-	<div class="filter-set owners" id="filter-owners">
-		<div class="title">By Owner</div>
+<% _.each(data.filterSets, function(filterSet) { %>
+	<div class="filter-set" id="filter-set-<%- filterSet.id %>"
+		data-filter-set-id="<%- filterSet.id %>">
+		<div class="title"><%- filterSet.title %></div>
 
 		<div class="filters">
-			<% _.each(data.owners, function(item) { %>
-			<button class="filter" value="<%- item.id %>" data-set="owners">
-				<%- item.name %>
+			<%
+				_.each(filterSet.availableValues, function(item) {
+					var value      = item.value || item,
+						title      = item.title || item,
+						isSelected = _.include(filterSet.selectedValues, value),
+						isEnabled  = _.include(filterSet.enabledValues, value)
+			%>
+			<button class="<%= (isSelected) ? 'filter active' : 'filter' %>"
+				value="<%- value %>" <%= (isEnabled) ? '' : 'disabled="disabled"' %>
+				data-filter-id="<%- filterSet.id %>">
+				<%- title %>
 			</button>
 			<% }); %>
 		</div>
 	</div>
-
-	<div class="filter-set features" id="filter-features">
-		<div class="title">By Features</div>
-
-		<div class="filters">
-			<% _.each(data.features, function(item) { %>
-			<button class="filter" value="<%- item %>" data-set="features">
-				<%- item %>
-			</button>
-			<% }); %>
-		</div>
-	</div>
-
-	<div class="filter-set genres" id="filter-genres">
-		<div class="title">By Genre</div>
-
-		<div class="filters">
-			<% _.each(data.genres, function(item) { %>
-			<button class="filter" value="<%- item %>" data-set="genres">
-				<%- item %>
-			</button>
-			<% }); %>
-		</div>
-	</div>
-
-	<div class="filter-set developers" id="filter-developers">
-		<div class="title">By Developer</div>
-
-		<div class="filters">
-			<% _.each(data.developers, function(item) { %>
-			<button class="filter" value="<%- item %>" data-set="developers">
-				<%- item %>
-			</button>
-			<% }); %>
-		</div>
-	</div>
-
-	<div class="filter-set publishers" id="filter-publishers">
-		<div class="title">By Publisher</div>
-
-		<div class="filters">
-			<% _.each(data.publishers, function(item) { %>
-			<button class="filter" value="<%- item %>" data-set="publishers">
-				<%- item %>
-			</button>
-			<% }); %>
-		</div>
-	</div>
+<% }); %>
 
 </div>

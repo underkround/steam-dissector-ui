@@ -6,9 +6,7 @@
  *   fetchgames:tick      (status, id, this)
  *   fetchgames:success   (status, id, this)
  *   fetchgames:error     (status, id, this)
- *   filters:add          (filter, this)
  *   filters:reset        (this)
- *   filters:apply        (this)             Signals end of bulk filter modifications
  */
 
 define([
@@ -38,27 +36,18 @@ define([
 		// Filters
 		//
 
-		addFilter: function(filter, options) {
-			this.filters.push(filter);
-			if ( ! options || ! options.silent) {
-				this.trigger('filters:add', filter, this);
-			}
-		},
-
-		resetFilters: function(options) {
-			this.filters = [];
+		setFilters: function(filters, options) {
+			this.filters = filters || [];
 			if ( ! options || ! options.silent) {
 				this.trigger('filters:reset', this);
 			}
 		},
 
-		applyFilters: function() {
-			this.trigger('filters:apply', this);
-			console.log('filters:apply -> using', this.filters);
-		},
-
-		getFilters: function() {
-			return this.filters;
+		clearFilters: function(options) {
+			this.filters = [];
+			if ( ! options || ! options.silent) {
+				this.trigger('filters:reset', this);
+			}
 		},
 
 		//
@@ -138,33 +127,6 @@ define([
 			return _.map(this.getFiltered(), function(game) {
 				return game.toJSON(options);
 			});
-		},
-
-		getProperties: function() {
-			return this.getPropertiesFrom(this.models);
-		},
-
-		filteredGetProperties: function() {
-			return this.getPropertiesFrom(this.getFiltered());
-		},
-
-		getPropertiesFrom: function(games) {
-			var properties = {
-				developers: [],
-				features: [],
-				genres: [],
-				publishers: []
-			};
-			_.each(games, function(game) {
-				var gameProperties;
-				for (var key in properties) {
-					gameProperties = game.get(key);
-					if (gameProperties) {
-						properties[key] = _.union(properties[key], gameProperties);
-					}
-				}
-			});
-			return properties;
 		}
 	});
 
