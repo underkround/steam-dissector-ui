@@ -3,6 +3,7 @@
  *  games:reset     (games, this)
  *  games:error     (this)
  */
+
 define([
 	'underscore',
 	'backbone',
@@ -52,7 +53,7 @@ define([
 		},
 
 		getHoursOnRecordForGame: function(game) {
-			var game = this.getGame(game);
+			game = this.getGame(game);
 			if (game) {
 				return parseFloat(game.hoursOnRecord) || 0.0;
 			}
@@ -60,7 +61,7 @@ define([
 		},
 
 		getHoursLast2WeeksForGame: function(game) {
-			var game = this.getGame(game);
+			game = this.getGame(game);
 			if (game) {
 				return parseFloat(game.hoursLast2Weeks) || 0.0;
 			}
