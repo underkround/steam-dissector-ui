@@ -23,7 +23,11 @@ define([
 		},
 
 		removeOwner: function(owner) {
-			this.owners = _.without(this.owners, owner);
+			var ownerId = _.isObject(owner) ? owner.id : owner;
+			this.owners = _.filter(this.owners, function(o) {
+				return o.id != ownerId;
+			});
+//			this.owners = _.without(this.owners, owner);
 		},
 
 		getOwners: function() {
@@ -39,6 +43,9 @@ define([
 		},
 
 		getOwner: function(ownerId) {
+			if (_.isObject(ownerId)) {
+				ownerId = ownerId.id;
+			}
 			return _.find(this.owners, function(owner) {
 				return owner.get('id') === ownerId;
 			});

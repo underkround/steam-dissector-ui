@@ -77,12 +77,15 @@ define([
 		},
 
 		onProfileRemove: function(profile) {
+			var self = this,
+				idsToRemove = [];
 			this.games.each(function(game) {
 				game.removeOwner(profile);
 				if ( ! game.hasOwners()) {
-					this.games.remove(game);
+					idsToRemove.push(game.id);
 				}
 			});
+			this.games.remove(idsToRemove);
 		},
 
 		onGameExists: function(game) {
