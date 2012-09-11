@@ -119,7 +119,12 @@ define([
 		title:  'By owners',
 		create: function(filterValues) {
 			return function(game) {
-				return true; // @TODO
+				var ref = _(game.owners).map(function(owner) {
+					return owner.id;
+				});
+				return _(filterValues).every(function(filterValue) {
+					return _.include(ref, filterValue);
+				});
 			};
 		},
 		parseValues: function(games) {
@@ -156,11 +161,9 @@ define([
 			create: function(filterValues) {
 				var filterId = this.id;
 				return function(game) {
-					var ref = _(game.get(filterId));
-					// Why does this not work:  !
-					//return _(filterValues).every(ref.contains);
+					var ref = game.get(filterId);
 					return _(filterValues).every(function(filterValue) {
-						return ref.contains(filterValue);
+						return _.include(ref, filterValue);
 					});
 				};
 			},

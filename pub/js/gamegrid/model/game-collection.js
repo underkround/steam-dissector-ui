@@ -7,6 +7,7 @@
  *   fetchgames:success   (status, id, this)
  *   fetchgames:error     (status, id, this)
  *   filters:reset        (this)
+ *   exists               (game)   when bulk-loadable game exists
  */
 
 define([
@@ -82,8 +83,13 @@ define([
 
 		fetchGames: function(idsToAdd) {
 			var self = this,
-				existingIds = this.pluck('id');
-				newIds = _.difference(idsToAdd, existingIds);
+				existingIds = this.pluck('id'),
+				newIds = _.difference(idsToAdd, existingIds),
+				existingAnnouncableIds = _.difference(idsToAdd, newIds);
+
+			_.each(existingAnnouncableIds, function(id) {
+				self.trigger('exists', self.get(id));
+			});
 
 			var status = new utils.LoadStatus(newIds, function() {
 				self.trigger('fetchgames:done', status, self);

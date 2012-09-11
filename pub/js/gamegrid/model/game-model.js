@@ -34,6 +34,10 @@ define([
 			return !! this.getOwner(ownerId);
 		},
 
+		hasOwners: function() {
+			return ! _.isEmpty(this.owners);
+		},
+
 		getOwner: function(ownerId) {
 			return _.find(this.owners, function(owner) {
 				return owner.get('id') === ownerId;

@@ -28,14 +28,17 @@ define([
 		availableSorters: {},
 
 		initialize: function() {
-			this.games = new GameCollection;
-			this.profiles = new ProfileCollection;
+			this.games = new GameCollection();
+			this.profiles = new ProfileCollection();
 
-			this.games.on('add', this.onGameAdd, this);
-			this.games.on('remove', this.onGameRemove, this);
+			this.games
+				.on('add', this.onGameAdd, this)
+				.on('remove', this.onGameRemove, this)
+				.on('exists', this.onGameExists, this);
 
-			this.profiles.on('add', this.onProfileAdd, this);
-			this.profiles.on('remove', this.onProfileRemove, this);
+			this.profiles
+				.on('add', this.onProfileAdd, this)
+				.on('remove', this.onProfileRemove, this);
 
 			// @TODO: remove some day
 			window.debug = this;
@@ -68,7 +71,7 @@ define([
 
 		onProfileAdd: function(profile) {
 			profile.on('games:reset', this.fetchGames, this);
-			if (_.isEmpty(profile.games.length)) {
+			if (_.isEmpty(profile.games)) {
 				profile.fetchGames();
 			}
 		},
@@ -76,19 +79,30 @@ define([
 		onProfileRemove: function(profile) {
 			this.games.each(function(game) {
 				game.removeOwner(profile);
+				if ( ! game.hasOwners()) {
+					this.games.remove(game);
+				}
 			});
 		},
 
+		onGameExists: function(game) {
+			this.addOwnersToGame(game);
+		},
+
 		onGameAdd: function(game) {
+			this.addOwnersToGame(game);
+		},
+
+		addOwnersToGame: function(game) {
 			this.profiles.each(function(profile) {
 				if (profile.hasGame(game)) {
 					game.addOwner(profile);
 				}
-			})
+			});
 		},
 
 		onGameRemove: function(game) {
-			// @TODO
+			// @TODO (?)
 		},
 
 		fetchGames: function(games) {
