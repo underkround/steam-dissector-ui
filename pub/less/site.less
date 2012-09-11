@@ -24,6 +24,13 @@
 @mediaMaxSmallScreen: 920px;
 @mediaMaxMobile: 767px;
 
+@logoWidth: 184px;
+@logoMargin: 5px;
+@logoWidthMedium: 140px;
+@logoMarginMedium: 4px;
+@logoWidthSmall: 80px;
+@logoMarginSmall: 2px;
+
 @iconSpritePath:          "../img/glyphicons-halflings.png";
 @iconWhiteSpritePath:     "../img/glyphicons-halflings-white.png";
 [class^="icon-"],
@@ -90,9 +97,14 @@ button:hover {
 	margin: 0 auto;
 }
 
-/**
+
+/******************************************************************************
+ *
  * Page parts
- */
+ *
+ ******************************************************************************/
+
+
 header {
 	height: 60px;
 	background: transparent url('@{imgPath}/header-bg.png') 0px 0px repeat-x;
@@ -165,9 +177,13 @@ footer {
 	}
 }
 
-/**
+
+/******************************************************************************
+ *
  * Views
- */
+ *
+ ******************************************************************************/
+
 
 #gamegrid-filters {
 	.filter-set {
@@ -282,7 +298,7 @@ footer {
 			text-align: left;
 			vertical-align: top;
 			background: #222;
-			border-top: 1px solid #1c1c1c;
+			border-top: 2px solid #1c1c1c;
 		}
 	}
 
@@ -337,9 +353,6 @@ footer {
 
 	.games-container {
 		.game {
-			@logoWidth: 184px;
-			@logoMargin: 5px;
-
 			.logo {
 				width: @logoWidth;
 				margin: @logoMargin;
@@ -347,30 +360,85 @@ footer {
 				.border-radius(5px);
 			}
 
+			.header,
 			.details {
+				position: relative;
 				margin-left: @logoWidth + @logoMargin * 2;
 			}
 
-			@media (max-width: @mediaMaxMobile) {
-				.logo {
-					float: none;
+			.header {
+				.title {
+					display: inline-block;
+					font-size: 16px;
+					font-weight: bold;
+					margin:	5px 10px 0 0;
 				}
-				.details {
-					margin-left: 0px;
+				.metascore {
+					display: inline-block;
+					padding: 3px 10px;
+					position: relative;
+					//top: -3px;
+					float: right;
+					margin: 2px 3px 0 0;
+
+					&.high {
+						background: #1D7100;
+					}
+					&.medium {
+						background: #AA8C0F;
+					}
+					&.low {
+						background: #FF0000;
+					}
+				}
+			}
+
+			.details {
+				.detail {
+					float: left;
+					margin: 0 0 5px 0;
+
+					span,
+					strong {
+						background: #1C1C1C;
+						font-weight: normal;
+						margin: 1px;
+						display: block;
+						padding: 2px 0 2px 2px;
+					}
 				}
 
+				.detail.release-date { width: 14%; }
+				.detail.features { width: 35%; }
+				.detail.genres { width: 27%; }
+				.detail.developers { width: 12%; }
+				.detail.publishers { width: 12%; }
 			}
 		}
 
 		.owner {
 			border-left: 1px solid #2a2a2a;
+			vertical-align: middle;
+			text-align: center;
+
+			&.owns {
+				#gradient > .vertical(#1D5509, #222);
+			}
+			&.lacks {
+				#gradient > .vertical(#721E01, #222);
+			}
 		}
 	}
 }
 
-/**
- * Structure
- */
+
+/******************************************************************************
+ *
+ * Structure & responsive
+ *
+ ******************************************************************************/
+
+
 @containerWidth: 1180px;
 @sidebarWidth: 300px;
 .container {
@@ -396,6 +464,7 @@ footer {
 	.transition(all 0.5s ease-out);
 }
 
+
 @media (max-width: @mediaMaxScreen) {
 	@containerWidth: 910px;
 	@sidebarWidth: 200px;
@@ -412,7 +481,16 @@ footer {
 	.content {
 		width: @containerWidth - @sidebarWidth - 20px;
 	}
+
+	#gamegrid-games .games-container .game .details {
+		.detail.release-date { width: 19%; }
+		.detail.features { width: 35%; }
+		.detail.genres { width: 30%; }
+		.detail.developers { display: none; }
+		.detail.publishers { width: 16%; }
+	}
 }
+
 
 @media (max-width: @mediaMaxSmallScreen) {
 	@containerWidth: 760px;
@@ -430,7 +508,25 @@ footer {
 	.content {
 		width: @containerWidth - @sidebarWidth - 20px;
 	}
+	#gamegrid-games .games-container .game {
+		.logo {
+			width: @logoWidthMedium;
+			margin: @logoMarginMedium;
+		}
+		.header,
+		.details {
+			margin-left: @logoWidthMedium + @logoMarginMedium * 2;
+		}
+		.details {
+			.detail.release-date { width: 22%; }
+			.detail.features { width: 42%; }
+			.detail.genres { width: 36%; }
+			.detail.developers { display: none; }
+			.detail.publishers { display: none; }
+		}
+	}
 }
+
 
 @media (max-width: @mediaMaxMobile) {
 	header {
@@ -458,5 +554,18 @@ footer {
 		border-left: none;
 		border-right: none;
 		margin: 0;
+	}
+	#gamegrid-games .games-container .game {
+		.logo {
+			width: @logoWidthSmall;
+			margin: @logoMarginSmall;
+		}
+		.header {
+			margin-left: @logoWidthSmall + @logoMarginSmall * 2;
+		}
+		.details {
+			margin-left: 0;
+			float: none;
+		}
 	}
 }

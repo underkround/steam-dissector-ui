@@ -953,9 +953,11 @@ button:hover {
 .container {
   margin: 0 auto;
 }
-/**
+/******************************************************************************
+ *
  * Page parts
- */
+ *
+ ******************************************************************************/
 header {
   height: 60px;
   background: transparent url('/img/header-bg.png') 0px 0px repeat-x;
@@ -1015,9 +1017,11 @@ footer a:hover {
   text-shadow: 0 1px 7px #000;
   font-weight: bold;
 }
-/**
+/******************************************************************************
+ *
  * Views
- */
+ *
+ ******************************************************************************/
 #gamegrid-filters .filter-set {
   margin: 10px 0 0 0;
 }
@@ -1117,7 +1121,7 @@ footer a:hover {
   text-align: left;
   vertical-align: top;
   background: #222;
-  border-top: 1px solid #1c1c1c;
+  border-top: 2px solid #1c1c1c;
 }
 #gamegrid-games .ordering .order-by:not(.active) .icon-order-by {
   display: none;
@@ -1171,23 +1175,90 @@ footer a:hover {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
+#gamegrid-games .games-container .game .header,
 #gamegrid-games .games-container .game .details {
+  position: relative;
   margin-left: 194px;
 }
-@media (max-width: 767px) {
-  #gamegrid-games .games-container .game .logo {
-    float: none;
-  }
-  #gamegrid-games .games-container .game .details {
-    margin-left: 0px;
-  }
+#gamegrid-games .games-container .game .header .title {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px 10px 0 0;
+}
+#gamegrid-games .games-container .game .header .metascore {
+  display: inline-block;
+  padding: 3px 10px;
+  position: relative;
+  float: right;
+  margin: 2px 3px 0 0;
+}
+#gamegrid-games .games-container .game .header .metascore.high {
+  background: #1D7100;
+}
+#gamegrid-games .games-container .game .header .metascore.medium {
+  background: #AA8C0F;
+}
+#gamegrid-games .games-container .game .header .metascore.low {
+  background: #FF0000;
+}
+#gamegrid-games .games-container .game .details .detail {
+  float: left;
+  margin: 0 0 5px 0;
+}
+#gamegrid-games .games-container .game .details .detail span,
+#gamegrid-games .games-container .game .details .detail strong {
+  background: #1C1C1C;
+  font-weight: normal;
+  margin: 1px;
+  display: block;
+  padding: 2px 0 2px 2px;
+}
+#gamegrid-games .games-container .game .details .detail.release-date {
+  width: 14%;
+}
+#gamegrid-games .games-container .game .details .detail.features {
+  width: 35%;
+}
+#gamegrid-games .games-container .game .details .detail.genres {
+  width: 27%;
+}
+#gamegrid-games .games-container .game .details .detail.developers {
+  width: 12%;
+}
+#gamegrid-games .games-container .game .details .detail.publishers {
+  width: 12%;
 }
 #gamegrid-games .games-container .owner {
   border-left: 1px solid #2a2a2a;
+  vertical-align: middle;
+  text-align: center;
 }
-/**
- * Structure
- */
+#gamegrid-games .games-container .owner.owns {
+  background-color: #1f4113;
+  background-image: -moz-linear-gradient(top, #1d5509, #222222);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1d5509), to(#222222));
+  background-image: -webkit-linear-gradient(top, #1d5509, #222222);
+  background-image: -o-linear-gradient(top, #1d5509, #222222);
+  background-image: linear-gradient(to bottom, #1d5509, #222222);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff1d5509', endColorstr='#ff222222', GradientType=0);
+}
+#gamegrid-games .games-container .owner.lacks {
+  background-color: #52200e;
+  background-image: -moz-linear-gradient(top, #721e01, #222222);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#721e01), to(#222222));
+  background-image: -webkit-linear-gradient(top, #721e01, #222222);
+  background-image: -o-linear-gradient(top, #721e01, #222222);
+  background-image: linear-gradient(to bottom, #721e01, #222222);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff721e01', endColorstr='#ff222222', GradientType=0);
+}
+/******************************************************************************
+ *
+ * Structure & responsive
+ *
+ ******************************************************************************/
 .container {
   width: 1180px;
   -webkit-transition: all 0.5s ease-out;
@@ -1236,6 +1307,21 @@ footer a:hover {
   .content {
     width: 690px;
   }
+  #gamegrid-games .games-container .game .details .detail.release-date {
+    width: 19%;
+  }
+  #gamegrid-games .games-container .game .details .detail.features {
+    width: 35%;
+  }
+  #gamegrid-games .games-container .game .details .detail.genres {
+    width: 30%;
+  }
+  #gamegrid-games .games-container .game .details .detail.developers {
+    display: none;
+  }
+  #gamegrid-games .games-container .game .details .detail.publishers {
+    width: 16%;
+  }
 }
 @media (max-width: 920px) {
   .container {
@@ -1250,6 +1336,29 @@ footer a:hover {
   }
   .content {
     width: 540px;
+  }
+  #gamegrid-games .games-container .game .logo {
+    width: 140px;
+    margin: 4px;
+  }
+  #gamegrid-games .games-container .game .header,
+  #gamegrid-games .games-container .game .details {
+    margin-left: 148px;
+  }
+  #gamegrid-games .games-container .game .details .detail.release-date {
+    width: 22%;
+  }
+  #gamegrid-games .games-container .game .details .detail.features {
+    width: 42%;
+  }
+  #gamegrid-games .games-container .game .details .detail.genres {
+    width: 36%;
+  }
+  #gamegrid-games .games-container .game .details .detail.developers {
+    display: none;
+  }
+  #gamegrid-games .games-container .game .details .detail.publishers {
+    display: none;
   }
 }
 @media (max-width: 767px) {
@@ -1278,5 +1387,16 @@ footer a:hover {
     border-left: none;
     border-right: none;
     margin: 0;
+  }
+  #gamegrid-games .games-container .game .logo {
+    width: 80px;
+    margin: 2px;
+  }
+  #gamegrid-games .games-container .game .header {
+    margin-left: 84px;
+  }
+  #gamegrid-games .games-container .game .details {
+    margin-left: 0;
+    float: none;
   }
 }

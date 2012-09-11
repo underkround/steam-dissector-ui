@@ -149,7 +149,7 @@ define([
 	];
 	for (var i in specs) {
 		var id = specs[i][0],
-		    title = specs[i][1];
+			title = specs[i][1];
 		addFilterFactory({
 			id:     id,
 			title:  title,

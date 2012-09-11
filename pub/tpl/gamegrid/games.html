@@ -59,46 +59,87 @@
 					<a href="<%- game.storeLink %>">
 						<img class="logo" src="<%= game.logoSmall %>" alt="<%- game.name %>" />
 					</a>
-					<div class="details">
-						<strong><%- game.name %></strong>
-						<br />
-						<strong>Score:</strong>
-						<%- game.metascore %>
-						<br />
+					<div class="header">
+						<div class="title">
+							<%- game.name %>
+						</div>
 
-						<% if(game.features) { %>
-						<strong>Features:</strong>
-						<%- (game.features) ? game.features.join(', ') : '-' %>
-						<br />
-						<% } %>
-
-						<% if (game.genres) { %>
-						<strong>Genres:</strong>
-						<%- (game.genres) ? game.genres.join(', ') : '-' %>
-						<br />
-						<% } %>
-
-						<% if (game.developers) { %>
-						<strong>Developers:</strong>
-						<%- (game.developers) ? game.developers.join(', ') : '-' %>
-						<br />
-						<% } %>
-
-						<% if (game.publishers) { %>
-						<strong>Publishers:</strong>
-						<%- (game.publishers) ? game.publishers.join(', ') : '-' %>
-						<br />
+						<%
+							if (game.metascore) {
+								var gen = (game.metascore >= 75 ? 'high' : false)
+									|| (game.metascore >= 40 ? 'medium' : false)
+									|| 'low';
+						%>
+						<div class="metascore <%= gen %>">
+							<%- game.metascore %>
+						</div>
 						<% } %>
 					</div>
+
+					<div class="details">
+						<div class="detail release-date">
+							<strong>
+								Release date
+							</strong>
+							<span>
+								<%- (game.releaseDate) ? game.releaseDate : '-' %>
+							</span>
+						</div>
+
+						<div class="detail features">
+							<strong>
+								Features:
+							</strong>
+							<span>
+								<%- (game.features) ? game.features.join(', ') : '-' %>
+							</span>
+						</div>
+
+						<div class="detail genres">
+							<strong>
+								Genres:
+							</strong>
+							<span>
+								<%- (game.genres) ? game.genres.join(', ') : '-' %>
+							</span>
+						</div>
+
+						<div class="detail developers">
+							<strong>
+								Developers:
+							</strong>
+							<span>
+								<%- (game.developers) ? game.developers.join(', ') : '-' %>
+							</span>
+						</div>
+
+						<div class="detail publishers">
+							<strong>
+								Publishers:
+							</strong>
+							<span>
+								<%- (game.publishers) ? game.publishers.join(', ') : '-' %>
+							</span>
+						</div>
+					</div>
 				</td>
+
 				<% _.each(data.profiles, function(profile) { %>
-				<td class="owner owner-<%- profile.id %>">
-					<% if (profile.games && profile.games[gameId]) { %>
+
+				<% if (profile.games && profile.games[gameId]) { %>
+				<td class="owner owner-<%- profile.id %> owns">
+					<span>
 						<%- profile.games[gameId].hoursOnRecord %>h
-					<% } else { %>
-						Don't have
-					<% } %>
+						<br />
+						<%- profile.games[gameId].hoursLast2Weeks %>h
+					</span>
 				</td>
+				<% } else { %>
+				<td class="owner owner-<%- profile.id %> lacks">
+					<span>X</span>
+				</td>
+				<% } %>
+
 				<% }); %>
 			</tr>
 			<%
