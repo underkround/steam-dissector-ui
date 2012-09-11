@@ -1345,6 +1345,11 @@ footer a:hover {
   #gamegrid-games .games-container .game .details {
     margin-left: 148px;
   }
+  #gamegrid-games .games-container .game .details {
+    margin-left: 0;
+    float: none;
+    clear: left;
+  }
   #gamegrid-games .games-container .game .details .detail.release-date {
     width: 22%;
   }
@@ -1394,9 +1399,5 @@ footer a:hover {
   }
   #gamegrid-games .games-container .game .header {
     margin-left: 84px;
-  }
-  #gamegrid-games .games-container .game .details {
-    margin-left: 0;
-    float: none;
   }
 }
