@@ -82,7 +82,14 @@
 								Release date
 							</strong>
 							<span>
-								<%- (game.releaseDate) ? game.releaseDate : '-' %>
+								<% 
+									if (game.releaseDate) {
+										var d = new Date(game.releaseDate * 1000);
+										print(d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
+									} else {
+										print('-');
+									}
+								%>
 							</span>
 						</div>
 
