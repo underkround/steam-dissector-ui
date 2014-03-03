@@ -175,6 +175,7 @@ define([
 					})
 					.flatten()
 					.unique()
+					.sortBy(function(a) { return a.toLowerCase() })
 					.value();
 			}
 		});
