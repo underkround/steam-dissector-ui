@@ -68,15 +68,16 @@ define([
 		},
 
 		onAddProfile: function() {
-			var match = this.inputEl.val().match(/([a-zA-Z0-9]+)\/?$/);
-			if (match && match.length === 2) {
-				var profileId = match[1];
-				this.startProgress({
-					neutralPercent: 100,
-					message: 'Loading profile ' + profileId + '...'
-				});
-				this.model.addProfile(profileId);
+			var profileId = this.inputEl.val().trim();
+			if (profileId.length == 0) {
+				return;
 			}
+
+			this.startProgress({
+				neutralPercent: 100,
+				message: 'Loading profile ' + profileId + '...'
+			});
+			this.model.addProfile(profileId);
 		},
 
 		setError: function(xhr) {
