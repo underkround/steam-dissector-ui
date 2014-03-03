@@ -8,6 +8,7 @@ define([
 	'gamegrid/view/games',
 	'gamegrid/view/controls',
 	'gamegrid/model/profile-games-composite',
+	'utils'
 ], function(
 	$,
 	_,
@@ -16,7 +17,8 @@ define([
 	FiltersView,
 	GamesView,
 	ControlsView,
-	ProfileGamesComposite
+	ProfileGamesComposite,
+	utils
 ) {
 
 	var IndexView = Backbone.View.extend({
@@ -46,6 +48,14 @@ define([
 				model: this.model
 			});
 			gamesView.render();
+
+			setTimeout(function() {
+				var params = utils.getSearchParameters();
+				if (params.profiles) {
+					controlsView.inputEl.val(decodeURIComponent(params.profiles));
+					controlsView.onAddProfile();
+				}
+			}, 100);
 
 			return this;
 		}

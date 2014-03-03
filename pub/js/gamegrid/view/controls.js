@@ -3,12 +3,14 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'gamegrid/model/game-collection'
+	'gamegrid/model/game-collection',
+	'utils'
 ], function(
 	$,
 	_,
 	Backbone,
-	GameCollection
+	GameCollection,
+	utils
 ) {
 
 	var ControlsView = Backbone.View.extend({
@@ -75,9 +77,19 @@ define([
 
 			this.startProgress({
 				neutralPercent: 100,
-				message: 'Loading profile ' + profileId + '...'
+				message: 'Loading profile(s) ' + profileId + '...'
 			});
-			this.model.addProfile(profileId);
+
+			var addProfileIdToHistory = function(id) {
+				var params = utils.getSearchParameters();
+				var existingProfiles = params.profiles ? decodeURIComponent(params.profiles) + ' ' : '';
+				if (!_.find(existingProfiles.split(' '), function(i) { return i == id })) {
+					history.pushState('', '', '/?profiles=' + encodeURIComponent(existingProfiles + id));
+				}
+			}
+
+			var model = this.model;
+			_.each(profileId.split(' '), function(id) { model.addProfile(id.trim()); addProfileIdToHistory(id); });
 		},
 
 		setError: function(xhr) {
