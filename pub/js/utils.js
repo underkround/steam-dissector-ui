@@ -9,6 +9,13 @@ define([
 		return (from > 0) ? Math.round(done / from * 100) : 0;
 	};
 
+	var alphabeticalCompare = function(a, b) {
+		var aa = a.toString().toLowerCase(), bb = b.toString().toLowerCase();
+		if (aa < bb) return -1;
+		if (aa > bb) return 1;
+		return 0;
+	}
+
 	//
 	// LoadStatus
 	//
@@ -68,7 +75,8 @@ define([
 	// Utils
 	//
 	return {
-		LoadStatus: LoadStatus
+		LoadStatus: LoadStatus,
+		alphabeticalCompare: alphabeticalCompare
 	};
 
 });

@@ -39,7 +39,7 @@ define([
 		onOrderByClick: function(event) {
 			var el = $(event.currentTarget);
 			if (el) {
-				this.model.games.orderByToggle(el.val());
+				this.model.games.orderByToggle(el.val(), this.model.getAvailableSorters()[el.val()].sortFunction);
 				if (this.model.games.length < 1) {
 					this.render();
 				}
