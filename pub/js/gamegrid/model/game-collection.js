@@ -30,6 +30,7 @@ define([
 		initialize: function() {
 			this.orderReverse = false;
 			this.orderKey = 'name';
+			this.sortFunction = null;
 			this.filters = [];
 		},
 
@@ -55,26 +56,23 @@ define([
 		// Sorting (@TODO: refactor)
 		//
 
-		orderByToggle: function(orderKey) {
+		orderByToggle: function(orderKey, sortFunction) {
 			if (orderKey === this.orderKey) {
 				this.orderReverse = ! this.orderReverse;
 			} else {
 				this.orderKey = orderKey;
 				this.orderReverse = false;
 			}
+			this.sortFunction = sortFunction;
 			this.sort();
 		},
 
-		comparator: function(game) {
-			return game.get(this.orderKey) || 0;
-		},
-
-		sortBy: function() {
-			var comparator = _.bind(this.comparator, this);
-			if (this.orderReverse) {
-				return _.sortBy(this.models, comparator).reverse();
+		comparator: function(a, b) {
+			var i = this.orderReverse ? -1 : 1;
+			if (this.sortFunction != null) {
+				return i * this.sortFunction(a, b);
 			}
-			return _.sortBy(this.models, comparator);
+			return i * utils.alphabeticalCompare(a.get(this.orderKey), b.get(this.orderKey));
 		},
 
 		//

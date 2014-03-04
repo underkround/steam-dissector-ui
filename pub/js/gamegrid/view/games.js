@@ -4,13 +4,15 @@ define([
 	'underscore',
 	'backbone',
 	'config',
-	'text!templates/gamegrid/games.html'
+	'text!templates/gamegrid/games.html',
+	'utils'
 ], function(
 	$,
 	_,
 	Backbone,
 	config,
-	templateString
+	templateString,
+	utils
 ) {
 
 	var GamesView = Backbone.View.extend({
@@ -39,7 +41,29 @@ define([
 		onOrderByClick: function(event) {
 			var el = $(event.currentTarget);
 			if (el) {
-				this.model.games.orderByToggle(el.val());
+				var val = el.val();
+				var sortFunction;
+				var re = /^owner-(\d+)$/;
+				var groups = re.exec(val);
+				if (groups) {
+					var ownerId = groups[1];
+					var profile = _.find(this.model.profiles.models, function(owner){ return owner.id == ownerId });
+					sortFunction = function(a, b) {
+						var aGame = profile.games[a.id];
+						var bGame = profile.games[b.id];
+						if (aGame == null && bGame != null) return 1;
+						if (aGame != null && bGame == null) return -1;
+						if (aGame == null && bGame == null) return utils.alphabeticalCompare(a.get('name'), b.get('name'));
+						var aHours = parseFloat(aGame.hoursOnRecord);
+						var bHours = parseFloat(bGame.hoursOnRecord);
+						if (aHours < bHours) return 1;
+						if (aHours > bHours) return -1;
+						return utils.alphabeticalCompare(a.get('name'), b.get('name'));
+					};
+				} else {
+					sortFunction = this.model.getAvailableSorters()[val].sortFunction;
+				}
+				this.model.games.orderByToggle(val, sortFunction);
 				if (this.model.games.length < 1) {
 					this.render();
 				}

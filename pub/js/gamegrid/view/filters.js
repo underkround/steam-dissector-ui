@@ -150,7 +150,7 @@ define([
 		['genres', 'By genres'],
 		['features', 'By features'],
 		['developers', 'By developers'],
-		['publishers', 'By plublishers']
+		['publishers', 'By publishers']
 	];
 	for (var i in specs) {
 		var id = specs[i][0],
@@ -175,6 +175,7 @@ define([
 					})
 					.flatten()
 					.unique()
+					.sortBy(function(a) { return a.toLowerCase() })
 					.value();
 			}
 		});

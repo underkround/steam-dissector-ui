@@ -13,7 +13,8 @@ define([
 	'gamegrid/model/game-collection',
 	'gamegrid/model/profile-collection',
 	'gamegrid/model/game-model',
-	'gamegrid/model/profile-model'
+	'gamegrid/model/profile-model',
+	'utils'
 ], function(
 	_,
 	Backbone,
@@ -21,7 +22,8 @@ define([
 	GameCollection,
 	ProfileCollection,
 	GameModel,
-	ProfileModel
+	ProfileModel,
+	utils
 ){
 
 	var ProfileGamesComposite = Backbone.Model.extend({
@@ -136,9 +138,12 @@ define([
 			return this.availableSorters;
 		},
 
-		addAvailableSorter: function(id, title, sorter) {
-			sorter.id = id;
-			sorter.title = title;
+		addAvailableSorter: function(id, title, sortFunction) {
+			var sorter = {
+				id: id,
+				title: title,
+				sortFunction: sortFunction
+			};
 			this.availableSorters[id] = sorter;
 		}
 	});
@@ -153,25 +158,40 @@ define([
 		ProfileGamesComposite.prototype
 	);
 
-	addSorter('name', 'Name', function(game) {
-		return game.name;
+	var sortByInteger = function(a, b, key, i) {
+		var ad = parseInt(a.get(key), 10), bd = parseInt(b.get(key), 10);
+		if (ad < bd) return i * -1;
+		if (ad > bd) return i * 1;
+		if (!isNaN(ad) && isNaN(bd)) return -1;
+		if (isNaN(ad) && !isNaN(bd)) return 1;
+		return utils.alphabeticalCompare(a.get('name'), b.get('name'));
+	}
+
+	addSorter('name', 'Name', null);
+
+	addSorter('releaseDate', 'Released', function(a, b) {
+		return sortByInteger(a, b, 'releaseDate', 1);
 	});
 
-	addSorter('releaseDate', 'Released', function(game) {
-		return game.releaseDate;
+	addSorter('ownerHoursTotal', 'Hours (total)', function(a, b) {
+		var totalGameHours = function(game) {
+			return _.reduce(game.owners, function(memo, profile) {
+				var profileGame = profile.games[game.id];
+				if (profileGame) {
+					memo += parseFloat(profileGame.hoursOnRecord)
+				}
+				return memo;
+			}, 0);
+		}
+		var aHours = totalGameHours(a);
+		var bHours = totalGameHours(b);
+		if (aHours < bHours) return 1;
+		if (aHours > bHours) return -1;
+		return utils.alphabeticalCompare(a.get('name'), b.get('name'));
 	});
 
-	addSorter('ownerHoursTotal', 'Hours (total)', function(game) {
-		return _.reduce(game.owners, function(memo, profile) {
-			if (profile.games[game.id]) {
-				memo += parseFloat(profileGame.hours)
-			}
-			return memo;
-		}, 0);
-	});
-
-	addSorter('metascore', 'Rating', function(game) {
-		return (game.metascore > 0) ? game.metascore : 0;
+	addSorter('metascore', 'Rating', function(a, b) {
+		return sortByInteger(a, b, 'metascore', -1);
 	});
 
 	return ProfileGamesComposite;
